@@ -1,0 +1,86 @@
+id: 69455ed1cc3462d5fc429340
+name: Update File
+uuid: cea1499a-4d3c-4a63-a671-4ddb63f41c7a
+key: update-file
+state: READY
+errors: []
+revision: 9b4eacec-e4fb-46b3-bd7d-6f27cdee9054
+createdAt: '2025-12-19T14:18:57.526Z'
+updatedAt: '2025-12-21T21:59:53.028Z'
+isDeactivated: false
+integrationId: 69455bba4b69eb127da57875
+parentId: 69455ed1cc3462d5fc429282
+inputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+    fields:
+      type: object
+      properties:
+        name:
+          type: string
+type: update-data-record
+config:
+  dataSource:
+    key: files
+  id:
+    $var: $.input.id
+  fieldMapping:
+    key: files
+    input:
+      $var: $.input.fields
+isCustomized: false
+outputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+      userVisible: false
+defaultOutputSchema:
+  type: object
+  properties:
+    id:
+      type: string
+      userVisible: false
+integration:
+  id: 69455bba4b69eb127da57875
+  name: Microsoft Sharepoint
+  uuid: c6069e09-c6fb-4315-a445-1d106105e94e
+  key: microsoft-sharepoint
+  state: READY
+  errors: []
+  revision: fcd8843e-1b91-4d55-bd1e-b7c1d580c2fa
+  createdAt: '2025-12-19T14:05:46.914Z'
+  updatedAt: '2025-12-21T21:59:52.293Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
+  connectorId: 6466784d60f981f3ce696906
+  connectorVersion: 3.0.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 2
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  appUuid: 3aac6a28-0e52-42ea-b21a-0354768f6750
+  authType: oauth2
+dependencies:
+  - id: 69455ed1cc3462d5fc429282
+    type: action
+    dependencyType: PARENT
+  - id: 69455ed1cc3462d5fc42931f
+    type: data-source
+    dependencyType: CONFIGURATION
+  - id: 69455ed1cc3462d5fc42932e
+    type: field-mapping
+    dependencyType: CONFIGURATION
+  - id: 69455bba4b69eb127da57875
+    type: integration
+    dependencyType: PARENT
+integrationKey: microsoft-sharepoint

@@ -1,0 +1,16 @@
+id: 69455ed1cc3462d5fc429310
+name: Two-way realtime sync of Files
+uuid: 37b796a5-ef8d-4db8-9236-81fd08907cca
+key: two-way-realtime-sync-of-files
+state: READY
+errors: []
+revision: 47cb0ee9-fd1c-4641-9f01-596331274c5c
+createdAt: '2025-12-19T14:18:57.968Z'
+updatedAt: '2025-12-22T01:03:41.778Z'
+isDeactivated: false
+integrationId: 69455bba4b69eb127da57875
+parentId: 69455ed1cc3462d5fc4292f9
+externalAppId: 6671653e7e2d642e4e41b16b
+isCustomized: false
+isPublic: false
+integrationKey: microsoft-sharepoint

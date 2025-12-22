@@ -1,0 +1,82 @@
+id: 69455f8d3039bb3a385ccf4d
+name: Two-way realtime sync of Files
+uuid: 7be83470-3f78-4a5f-baf9-83f7e97b4878
+key: two-way-realtime-sync-of-files
+state: CONFIGURATION_ERROR
+errors:
+  - message: Data Source element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 69455f8d3039bb3a385ccf5a
+  - message: Field Mapping element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: field-mapping
+        id: 69455f8d3039bb3a385ccf69
+  - message: Action element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: action
+        id: 69455f8d3039bb3a385ccf77
+  - message: Action element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: action
+        id: 69455f8d3039bb3a385ccf8f
+  - message: Action element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: action
+        id: 69455f8d3039bb3a385ccfa6
+  - message: Flow element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: flow
+        id: 69455f8d3039bb3a385ccfcb
+  - message: Data Source element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: data-source
+        id: 694561718cd6517ee741635c
+  - message: Action element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: action
+        id: 69487965c09136ac34ef42a0
+  - message: Field Mapping element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: field-mapping
+        id: 694884f2bce67d65004e37e7
+  - message: Action element has error(s)
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: action
+        id: 694884f2bce67d65004e37dd
+  - message: Integration dependency is in CONFIGURATION_ERROR state
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 69455bc5edfad6f661658fd0
+revision: 47cb0ee9-fd1c-4641-9f01-596331274c5c
+createdAt: '2025-12-19T14:22:05.694Z'
+updatedAt: '2025-12-22T01:03:41.849Z'
+isDeactivated: false
+integrationId: 69455bc5edfad6f661658fd0
+parentId: 69455ed1cc3462d5fc4292f9
+externalAppId: 6671653e7e2d642e4e41b1da
+isCustomized: false
+isPublic: false
+integrationKey: confluence

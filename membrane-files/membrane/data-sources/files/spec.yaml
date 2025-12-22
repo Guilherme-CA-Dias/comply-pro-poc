@@ -1,0 +1,12 @@
+id: 69455ed1cc3462d5fc429259
+name: Files
+uuid: e56a331a-0dd3-4b0b-89a8-c256e8cb7e5e
+key: files
+state: READY
+errors: []
+revision: 5404befc-cf16-4066-bf58-97424ed51cd8
+createdAt: '2025-12-19T14:18:57.034Z'
+updatedAt: '2025-12-19T14:18:57.034Z'
+isDeactivated: false
+udm: files
+isCustomized: false

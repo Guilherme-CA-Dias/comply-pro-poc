@@ -1,0 +1,92 @@
+id: 6948851d362b590b096f28f8
+name: Folders
+uuid: 9ca6dbcc-39c5-4f1f-9984-61b2050d138f
+key: folders
+state: READY
+errors: []
+revision: c73c0c09-bb2c-4572-97e9-fdf12fa47a29
+createdAt: '2025-12-21T23:39:09.725Z'
+updatedAt: '2025-12-21T23:41:22.217Z'
+isDeactivated: false
+integrationId: 69455bba4b69eb127da57875
+universalFieldMappingId: 694884b0cd51131c6125f80d
+dataSourceKey: folders
+direction: both
+defaultImportValue:
+  ExternalId:
+    $var: $.id
+  Author:
+    $var: $.createdBy
+  SourceCreatedDate:
+    $var: $.createdTime
+  SourceCreatedBy:
+    $var: $.createdBy
+  SourceLastModifiedDate:
+    $var: $.updatedTime
+  SourceLastModifiedBy:
+    $var: $.updatedBy
+  Location:
+    $var: $.uri
+  Path:
+    $var: $.path
+  MimeType: application/vnd.folder
+  MediaType: Electronic
+  Title:
+    $var: $.name
+  Status: null
+  Parent:
+    $var: $.parentFolderId
+defaultExportValue:
+  $var: $
+importValue:
+  ExternalId:
+    $var: $.id
+  Author:
+    $var: $.createdBy.user.id
+  SourceCreatedDate:
+    $var: $.createdDateTime
+  SourceCreatedBy:
+    $var: $.createdBy.user.id
+  SourceLastModifiedDate:
+    $var: $.lastModifiedDateTime
+  SourceLastModifiedBy:
+    $var: $.lastModifiedBy.user.id
+  Location:
+    $var: $.webUrl
+  MimeType: application/vnd.folder
+  MediaType: Electronic
+  Title:
+    $var: $.name
+  Status: null
+  Parent:
+    $var: $.parentReference.id
+isCustomized: false
+universalFieldMappingRevision: c73c0c09-bb2c-4572-97e9-fdf12fa47a29
+integration:
+  id: 69455bba4b69eb127da57875
+  name: Microsoft Sharepoint
+  uuid: c6069e09-c6fb-4315-a445-1d106105e94e
+  key: microsoft-sharepoint
+  state: READY
+  errors: []
+  revision: fcd8843e-1b91-4d55-bd1e-b7c1d580c2fa
+  createdAt: '2025-12-19T14:05:46.914Z'
+  updatedAt: '2025-12-21T21:59:52.293Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/microsoft-sharepoint/logo-0e34b7f3-b86a-43d8-9cb3-4d9dcf189876.png
+  connectorId: 6466784d60f981f3ce696906
+  connectorVersion: 3.0.1
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 2
+  hasData: true
+  dataCollectionsCount: 9
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  appUuid: 3aac6a28-0e52-42ea-b21a-0354768f6750
+  authType: oauth2
+integrationKey: microsoft-sharepoint

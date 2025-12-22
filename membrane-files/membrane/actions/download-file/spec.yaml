@@ -1,0 +1,26 @@
+id: 69487957175cf3a248686384
+name: Download File
+uuid: 60f06c02-ba9d-46ad-96e1-178359355268
+key: download-file
+state: READY
+errors: []
+revision: 2df72f41-166a-4e3f-a4a3-d71137fd6745
+createdAt: '2025-12-21T22:48:55.783Z'
+updatedAt: '2025-12-21T22:48:55.783Z'
+isDeactivated: false
+inputSchema:
+  type: object
+  properties:
+    fileId:
+      type: string
+  required:
+    - fileId
+type: connector-operation
+config:
+  operationKey: download-file
+  input:
+    fileId:
+      $var: $.input.fileId
+isCustomized: false
+outputSchema: {}
+defaultOutputSchema: {}

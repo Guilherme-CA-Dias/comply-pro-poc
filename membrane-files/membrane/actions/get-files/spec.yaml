@@ -1,0 +1,215 @@
+id: 69455ed1cc3462d5fc42928a
+name: Get Files
+uuid: 2596bfea-9455-4839-9f28-69466708d024
+key: get-files
+state: READY
+errors: []
+revision: a734d15a-5759-4af5-9b70-2a72fe2cfd10
+createdAt: '2025-12-19T14:18:57.152Z'
+updatedAt: '2025-12-21T22:09:19.409Z'
+isDeactivated: false
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+    filter:
+      type: object
+      properties:
+        name:
+          type: string
+type: list-data-records
+config:
+  dataSource:
+    key: files
+  fieldMapping:
+    key: files
+  unifiedFilter:
+    $var: $.input.filter
+  cursor:
+    $var: $.input.cursor
+isCustomized: true
+outputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+    records:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          uri:
+            type: string
+            format: url
+          createdTime:
+            type: string
+            format: datetime
+          updatedTime:
+            type: string
+            format: datetime
+          deletedTime:
+            type: string
+            format: datetime
+          createdById:
+            type: string
+          updatedById:
+            type: string
+          fields:
+            type: object
+            properties:
+              ExternalId:
+                type: string
+                isImplied: true
+                title: External Id
+              SourceCreatedDate:
+                type: string
+                format: date-time
+                isImplied: true
+                title: Source Created Date
+              SourceCreatedBy:
+                type: string
+                referenceUdm: users
+                isImplied: true
+                title: Source Created By
+              SourceLastModifiedDate:
+                type: string
+                format: date-time
+                isImplied: true
+                title: Source Last Modified Date
+              SourceLastModifiedBy:
+                type: string
+                referenceUdm: users
+                isImplied: true
+                title: Source Last Modified By
+              Location:
+                type: string
+                isImplied: true
+                title: Location
+              MimeType:
+                type: string
+                isImplied: true
+                title: Mime Type
+              MediaType:
+                type: string
+                isImplied: true
+                title: Media Type
+              Title:
+                type: string
+                isImplied: true
+                title: Title
+              FileDirRef:
+                type: string
+                referenceUdm: folders
+                isImplied: true
+                title: File Dir Ref
+              SiteName:
+                type: string
+                referenceUdm: folders
+                isImplied: true
+                title: Site Name
+              FileSize:
+                type: integer
+                isImplied: true
+                title: File Size
+              ListUrl:
+                type: string
+                isImplied: true
+                title: List Url
+            isImplied: true
+defaultOutputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+    records:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          uri:
+            type: string
+            format: url
+          createdTime:
+            type: string
+            format: datetime
+          updatedTime:
+            type: string
+            format: datetime
+          deletedTime:
+            type: string
+            format: datetime
+          createdById:
+            type: string
+          updatedById:
+            type: string
+          fields:
+            type: object
+            properties:
+              ExternalId:
+                type: string
+                isImplied: true
+                title: External Id
+              SourceCreatedDate:
+                type: string
+                format: date-time
+                isImplied: true
+                title: Source Created Date
+              SourceCreatedBy:
+                type: string
+                referenceUdm: users
+                isImplied: true
+                title: Source Created By
+              SourceLastModifiedDate:
+                type: string
+                format: date-time
+                isImplied: true
+                title: Source Last Modified Date
+              SourceLastModifiedBy:
+                type: string
+                referenceUdm: users
+                isImplied: true
+                title: Source Last Modified By
+              Location:
+                type: string
+                isImplied: true
+                title: Location
+              MimeType:
+                type: string
+                isImplied: true
+                title: Mime Type
+              MediaType:
+                type: string
+                isImplied: true
+                title: Media Type
+              Title:
+                type: string
+                isImplied: true
+                title: Title
+              FileDirRef:
+                type: string
+                referenceUdm: folders
+                isImplied: true
+                title: File Dir Ref
+              SiteName:
+                type: string
+                referenceUdm: folders
+                isImplied: true
+                title: Site Name
+              FileSize:
+                type: integer
+                isImplied: true
+                title: File Size
+              ListUrl:
+                type: string
+                isImplied: true
+                title: List Url
+            isImplied: true

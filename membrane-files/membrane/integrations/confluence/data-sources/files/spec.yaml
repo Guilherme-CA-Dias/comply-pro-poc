@@ -1,0 +1,51 @@
+id: 69455f8d3039bb3a385ccf5a
+name: Files
+uuid: 6a2bbda9-a53b-420a-9ca3-8e44d05d8348
+key: files
+state: CONFIGURATION_ERROR
+errors:
+  - message: Integration dependency is in CONFIGURATION_ERROR state
+    type: dependency_error
+    data:
+      workspaceElementReference:
+        type: integration
+        id: 69455bc5edfad6f661658fd0
+revision: e63385d8-dd68-477c-aee0-5a6fd72ccc54
+createdAt: '2025-12-19T14:22:05.303Z'
+updatedAt: '2025-12-19T14:29:14.425Z'
+isDeactivated: false
+integrationId: 69455bc5edfad6f661658fd0
+universalDataSourceId: 69455ed1cc3462d5fc429259
+udm: files
+collectionKey: pages
+isCustomized: true
+universalDataSourceRevision: 5404befc-cf16-4066-bf58-97424ed51cd8
+integration:
+  id: 69455bc5edfad6f661658fd0
+  name: Confluence
+  uuid: 689a44fe-7c8c-49fe-b32c-4c13c2b84f6f
+  key: confluence
+  state: CONFIGURATION_ERROR
+  errors:
+    - message: Integration is missing required parameters
+      type: configuration
+  revision: 34808523-90f2-4b04-9ad2-18f06e9601aa
+  createdAt: '2025-12-19T14:05:58.008Z'
+  updatedAt: '2025-12-22T01:02:56.040Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/confluence/logo.png
+  connectorId: 6593cd0c1f437620a50a14f5
+  connectorVersion: 1.3.6
+  hasMissingParameters: true
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 126
+  hasData: true
+  dataCollectionsCount: 4
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  appUuid: 7ae023bc-250d-486d-9f7e-cf3dda6ce938
+  authType: oauth2
+integrationKey: confluence
