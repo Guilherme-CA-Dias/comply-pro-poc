@@ -1,12 +1,12 @@
 export const RECORD_ACTIONS = [
 	{
-		key: "get-contacts",
-		name: "Contacts",
+		key: "get-files",
+		name: "Files",
 		type: "default",
 	},
 	{
-		key: "get-clients",
-		name: "Clients",
+		key: "get-folders",
+		name: "Folders",
 		type: "default",
 	},
 ] as const;

@@ -51,10 +51,33 @@ export default function FormsPage() {
       try {
         setIsLoading(true)
         const response = await fetch(`/api/forms?customerId=${customerId}`)
-        const data = await response.json()
         
         if (!response.ok) {
-          throw new Error(data.error || 'Failed to fetch forms')
+          const errorText = await response.text()
+          let errorMessage = 'Failed to fetch forms'
+          try {
+            const errorData = JSON.parse(errorText)
+            errorMessage = errorData.error || errorMessage
+          } catch {
+            errorMessage = errorText || errorMessage
+          }
+          throw new Error(errorMessage)
+        }
+
+        const contentType = response.headers.get('content-type')
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Response is not JSON')
+        }
+
+        const text = await response.text()
+        if (!text) {
+          throw new Error('Empty response from server')
+        }
+
+        const data = JSON.parse(text)
+        
+        if (!data.forms) {
+          throw new Error('Invalid response format: missing forms array')
         }
 
         setForms(data.forms)
@@ -65,6 +88,7 @@ export default function FormsPage() {
         }
       } catch (error) {
         console.error('Error fetching forms:', error)
+        setForms([])
       } finally {
         setIsLoading(false)
       }

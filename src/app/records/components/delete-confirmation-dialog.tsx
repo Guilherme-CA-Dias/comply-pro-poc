@@ -20,6 +20,15 @@ import {
     onRecordDeleted: () => void
   }
   
+  // Helper function to get the display ID (ExternalId from fields, or fallback to id)
+  function getDisplayId(record: Record | null): string {
+    if (!record) return '';
+    if (record.fields?.ExternalId) {
+      return record.fields.ExternalId;
+    }
+    return record.id || '';
+  }
+
   export function DeleteConfirmationDialog({
     record,
     isOpen,
@@ -36,11 +45,14 @@ import {
       try {
         const auth = await ensureAuth()
         
+        // Use ExternalId from fields if available, otherwise use id
+        const recordId = record.fields?.ExternalId || record.id;
+        
         // Send webhook notification
         await sendToWebhook({
           type: 'deleted',
           data: {
-            id: record.id,
+            id: recordId,
             recordType: record.recordType,
             ...record
           },
@@ -48,7 +60,7 @@ import {
         })
         
         // Delete from database
-        const response = await fetch(`/api/records/${record.id}`, {
+        const response = await fetch(`/api/records/${recordId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -87,7 +99,7 @@ import {
               Are you sure you want to delete this record? This action cannot be undone.
             </p>
             <p className="mt-2 text-sm font-medium">
-              Record ID: <span className="font-mono">{record?.id}</span>
+              Record ID: <span className="font-mono">{getDisplayId(record)}</span>
             </p>
           </div>
           <DialogFooter>

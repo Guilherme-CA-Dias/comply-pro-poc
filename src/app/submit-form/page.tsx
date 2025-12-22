@@ -1,218 +1,202 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Select } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog"
-import { useAuth } from '@/app/auth-provider'
-import { DataInput } from "@integration-app/react"
-import { useSchema } from "@/hooks/useSchema"
-import { Loader2 } from "lucide-react"
-import { sendToWebhook } from '@/lib/webhook-utils'
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Download, Trash2, Loader2 } from "lucide-react";
+import { getStoredDownloads, removeDownload, clearDownloads, type DownloadItem } from "@/lib/downloads";
+import { getAuthHeaders } from "@/lib/fetch-utils";
 
-interface FormDefinition {
-  _id: string
-  formId: string
-  formTitle: string
-  type: 'default' | 'custom'
-  integrationKey?: string
-  createdAt: string
-  updatedAt: string
-}
+export default function DownloadsPage() {
+  const [downloads, setDownloads] = useState<DownloadItem[]>([]);
+  const [downloadingUri, setDownloadingUri] = useState<string | null>(null);
 
-export default function SubmitFormPage() {
-  const [selectedForm, setSelectedForm] = useState('')
-  const [forms, setForms] = useState<FormDefinition[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [formData, setFormData] = useState<{ fields: Record<string, any> }>({ fields: {} })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-  const { customerId } = useAuth()
-  
-  // Get schema for the selected form
-  const { schema, isLoading: schemaLoading, error: schemaError } = useSchema(
-    selectedForm || ''
-  )
-
-  // Fetch forms from MongoDB
+  // Load downloads from localStorage
   useEffect(() => {
-    const fetchForms = async () => {
-      if (!customerId) return
+    const loadDownloads = () => {
+      setDownloads(getStoredDownloads());
+    };
 
-      try {
-        setIsLoading(true)
-        const response = await fetch(`/api/forms?customerId=${customerId}`)
-        const data = await response.json()
-        
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to fetch forms')
-        }
+    loadDownloads();
 
-        setForms(data.forms)
-      } catch (error) {
-        console.error('Error fetching forms:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    
-    fetchForms()
-  }, [customerId])
+    // Listen for storage changes (in case downloads are added from other tabs)
+    const handleStorageChange = () => {
+      loadDownloads();
+    };
 
-  const handleFieldChange = (value: unknown) => {
-    setFormData({
-      fields: value as Record<string, any>
-    })
-  }
+    // Listen for custom event when download is added in same tab
+    const handleDownloadAdded = () => {
+      loadDownloads();
+    };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!selectedForm || !customerId) return
-    
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("download-added", handleDownloadAdded);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("download-added", handleDownloadAdded);
+    };
+  }, []);
+
+  const handleGetContent = async (downloadUri: string, fileName: string) => {
+    setDownloadingUri(downloadUri);
+
     try {
-      setIsSubmitting(true)
+      // Use proxy endpoint to avoid CORS issues
+      const proxyUrl = `/api/records/download-proxy?uri=${encodeURIComponent(downloadUri)}`;
       
-      // Generate a unique ID for the new record
-      const recordId = `REC${Date.now().toString().slice(-8)}`
+      // Fetch through our proxy
+      const response = await fetch(proxyUrl, {
+        method: "GET",
+        headers: {
+          ...getAuthHeaders(),
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to download file");
+      }
+
+      // Get the file as a blob
+      const blob = await response.blob();
       
-      // Prepare the record data
-      const recordType = selectedForm.replace('get-', '')
-      const recordData = {
-        id: recordId,
-        ...formData.fields,
-        recordType
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      
+      // Get filename from Content-Disposition header or use the stored name
+      const contentDisposition = response.headers.get("Content-Disposition");
+      let downloadFileName = fileName || "download";
+      
+      if (contentDisposition) {
+        const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+        if (fileNameMatch && fileNameMatch[1]) {
+          downloadFileName = fileNameMatch[1].replace(/['"]/g, "");
+        }
       }
       
-      // Send the data via webhook
-      await sendToWebhook({
-        type: 'created',
-        data: recordData,
-        customerId
-      })
-      
-      // Reset form and show success message
-      setFormData({ fields: {} })
-      setSubmitSuccess(true)
-      
-      // Hide success message after 3 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false)
-      }, 3000)
+      a.download = downloadFileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Error submitting form:', error)
+      console.error("Error downloading file:", error);
+      alert(error instanceof Error ? error.message : "Failed to download file");
     } finally {
-      setIsSubmitting(false)
+      setDownloadingUri(null);
     }
-  }
+  };
+
+  const handleRemove = (fileId: string) => {
+    removeDownload(fileId);
+    setDownloads(getStoredDownloads());
+  };
+
+  const handleClearAll = () => {
+    if (confirm("Are you sure you want to clear all downloads?")) {
+      clearDownloads();
+      setDownloads([]);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      return new Date(dateString).toLocaleString();
+    } catch {
+      return dateString;
+    }
+  };
 
   return (
     <div className="container mx-auto py-10 space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Submit Form</h1>
-        <p className="text-muted-foreground mt-2">
-          Select a form type and submit data
-        </p>
-      </div>
-
-      {/* Form Selection */}
-      <div className="grid gap-6 md:grid-cols-[1fr]">
-        <Select
-          value={selectedForm}
-          onChange={(e) => setSelectedForm(e.target.value)}
-          className="w-full"
-          disabled={isLoading}
-        >
-          <option value="">Select form type</option>
-          {forms.map((form) => {
-            const formKey = `get-${form.formId}`
-            return (
-              <option key={form.formId} value={formKey}>
-                {form.formTitle} {form.type === 'custom' ? '(Custom)' : ''}
-              </option>
-            )
-          })}
-        </Select>
-      </div>
-
-      {/* Form Content */}
-      {selectedForm && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-          <div className="p-6 space-y-4">
-            <div>
-              <h2 className="text-lg font-semibold">
-                {forms.find(f => `get-${f.formId}` === selectedForm)?.formTitle || 'Form'}
-              </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Fill out the form fields below
-              </p>
-            </div>
-            
-            <form onSubmit={handleSubmit}>
-              {schemaLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                </div>
-              ) : schemaError ? (
-                <div className="text-red-500">
-                  {schemaError?.message || 'Failed to load form schema'}
-                </div>
-              ) : (
-                <ScrollArea className="h-[50vh]">
-                  <div className="rounded-xl bg-white-100/60 dark:bg-sky-900/20 p-4 shadow-sm">
-                    <DataInput
-                      schema={schema}
-                      value={formData.fields}
-                      onChange={handleFieldChange}
-                    />
-                  </div>
-                  
-                  <div className="flex justify-between mt-6 gap-2">
-                    <Button 
-                      type="button" 
-                      variant="outline" 
-                      className="bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300 hover:bg-blue-100 hover:text-red-700 dark:hover:bg-red-700 dark:hover:text-red-100" 
-                      onClick={() => setFormData({ fields: {} })}
-                    >
-                      Reset
-                    </Button>
-                    <Button 
-                      type="submit"
-                      className="bg-blue-100 text-blue-700 dark:bg-blue-700 dark:text-blue-100 hover:bg-blue-200 hover:text-blue-800 dark:hover:bg-blue-800 dark:hover:text-blue-100"
-                      disabled={isSubmitting || schemaLoading}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        'Submit Form'
-                      )}
-                    </Button>
-                  </div>
-                </ScrollArea>
-              )}
-            </form>
-          </div>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Downloads</h1>
+          <p className="text-muted-foreground mt-2">
+            Track and download files you've requested
+          </p>
         </div>
-      )}
+        {downloads.length > 0 && (
+          <Button
+            onClick={handleClearAll}
+            variant="outline"
+            className="border-red-200 bg-white text-red-600 hover:bg-red-50 hover:border-red-300 hover:text-red-700 dark:border-red-800 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-red-900/20 dark:hover:border-red-700 dark:hover:text-red-300"
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Clear All
+          </Button>
+        )}
+      </div>
 
-      {/* Success Message */}
-      {submitSuccess && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-          <strong className="font-bold">Success!</strong>
-          <span className="block sm:inline"> Form submitted successfully.</span>
+      {/* Downloads List */}
+      {downloads.length === 0 ? (
+        <div className="rounded-md border p-8 text-center">
+          <p className="text-muted-foreground">
+            No downloads yet. Click the download button on any file in the Records page to track it here.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {downloads.map((download) => (
+            <div
+              key={download.fileId}
+              className="rounded-xl bg-sky-100/60 dark:bg-sky-900/20 p-4 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
+                    {download.fileName}
+                  </h3>
+                  {download.recordName && download.recordName !== download.fileName && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
+                      {download.recordName}
+                    </p>
+                  )}
+                  <div className="mt-2 space-y-1">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      File ID: <span className="font-mono">{download.fileId}</span>
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Requested: {formatDate(download.timestamp)}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 ml-4">
+                  <Button
+                    onClick={() => handleGetContent(download.downloadUri, download.fileName)}
+                    disabled={downloadingUri === download.downloadUri}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    {downloadingUri === download.downloadUri ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Downloading...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="mr-2 h-4 w-4" />
+                        Get Content
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    onClick={() => handleRemove(download.fileId)}
+                    variant="outline"
+                    size="icon"
+                    className="border-red-200 bg-white text-red-600 hover:bg-red-50 hover:border-red-300 hover:text-red-700 dark:border-red-800 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-red-900/20 dark:hover:border-red-700 dark:hover:text-red-300"
+                    title="Remove from list"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
-  )
-} 
+  );
+}

@@ -1,5 +1,5 @@
 export const DEFAULT_SCHEMAS = {
-	contacts: {
+	files: {
 		properties: {
 			id: { type: "string", title: "ID" },
 			name: { type: "string", title: "Name" },
@@ -60,7 +60,7 @@ export const DEFAULT_SCHEMAS = {
 		},
 		required: ["id", "name", "taskName"],
 	},
-	clients: {
+	folders: {
 		properties: {
 			id: { type: "string", title: "ID" },
 			name: { type: "string", title: "Name" },

@@ -14,20 +14,10 @@ export async function GET(request: NextRequest) {
 
 		const searchParams = request.nextUrl.searchParams;
 		const actionKey = searchParams.get("action") as RecordActionKey;
-		const instanceKey = searchParams.get("instanceKey");
-		const autoCreate = searchParams.get("autoCreate") === "true";
 
 		if (!actionKey) {
 			return NextResponse.json(
 				{ error: "Action key is required" },
-				{ status: 400 }
-			);
-		}
-
-		// For get-objects action, instanceKey is required
-		if (actionKey === "get-objects" && !instanceKey) {
-			return NextResponse.json(
-				{ error: "Instance key is required for get-objects action" },
 				{ status: 400 }
 			);
 		}
@@ -72,7 +62,7 @@ export async function GET(request: NextRequest) {
 				await Promise.all(
 					recordsToSave.map((record: any) =>
 						Record.updateOne(
-							{ id: record.id, customerId: auth.customerId },
+							{ id: record.fields.ExternalId, customerId: auth.customerId },
 							record,
 							{ upsert: true }
 						)

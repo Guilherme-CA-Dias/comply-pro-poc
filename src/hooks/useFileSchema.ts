@@ -1,9 +1,9 @@
 import useSWR from 'swr'
 import { FormField } from '@/types/contact-schema'
 
-export function useContactSchema(userId: string) {
+export function useFileSchema(userId: string) {
   const { data, error, isLoading } = useSWR<FormField[]>(
-    userId ? `/api/schema/contacts/${userId}` : null,
+    userId ? `/api/schema/files/${userId}` : null,
     async (url: string) => {
       const response = await fetch(url, {
         headers: {
@@ -12,7 +12,7 @@ export function useContactSchema(userId: string) {
       })
       
       if (!response.ok) {
-        throw new Error('Failed to fetch contact schema')
+        throw new Error('Failed to fetch file schema')
       }
       
       return response.json()
@@ -24,4 +24,5 @@ export function useContactSchema(userId: string) {
     isLoading,
     error,
   }
-} 
+}
+

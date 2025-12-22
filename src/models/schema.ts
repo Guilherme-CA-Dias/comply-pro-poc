@@ -22,7 +22,7 @@ schemaPropertySchema.pre('save', function(next) {
 
 const fieldSchemaSchema = new mongoose.Schema({
   customerId: { type: String, required: true },
-  recordType: { type: String, required: true }, // 'contacts', 'leads', etc.
+  recordType: { type: String, required: true }, // 'files', 'folders', etc.
   properties: { type: Map, of: schemaPropertySchema },
   required: [String]
 }, {

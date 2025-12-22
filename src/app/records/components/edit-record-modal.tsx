@@ -41,14 +41,6 @@ export function EditRecordModal({
 	const [fieldChanges, setFieldChanges] = useState<FieldChange[]>([]);
 	const [error, setError] = useState<string | null>(null);
 
-	// Get default form types from RECORD_ACTIONS
-	const defaultFormTypes = RECORD_ACTIONS.filter(
-		(action) => action.type === "default"
-	).map((action) => action.key.replace("get-", ""));
-
-	// Check if this is a custom record type
-	const isCustomType = !defaultFormTypes.includes(record.recordType);
-
 	// Get schema for the record type
 	const {
 		schema,
@@ -101,20 +93,17 @@ export function EditRecordModal({
 			const auth = await ensureAuth();
 
 			// Prepare webhook payload
+			// Use ExternalId from fields if available, otherwise use id
+			const recordId = record.fields?.ExternalId || record.id;
 			const webhookPayload: any = {
 				type: "updated" as const,
 				data: {
 					...formData,
-					id: record.id,
+					id: recordId,
 					recordType: record.recordType,
 				},
 				customerId: auth.customerId,
 			};
-
-			// For custom objects, add instanceKey to the payload
-			if (isCustomType) {
-				webhookPayload.instanceKey = record.recordType;
-			}
 
 			// Send webhook
 			await sendToWebhook(webhookPayload);
@@ -155,7 +144,7 @@ export function EditRecordModal({
 			<DialogContent className="sm:max-w-[900px] h-[80vh] bg-white dark:bg-gray-800">
 				<DialogHeader className="space-y-1.5">
 					<DialogTitle className="text-lg font-semibold">
-						Edit Record - ID: {formData?.id}
+						Edit Record - ID: {formData?.fields?.ExternalId || formData?.id || 'N/A'}
 					</DialogTitle>
 				</DialogHeader>
 				{schemaLoading ? (

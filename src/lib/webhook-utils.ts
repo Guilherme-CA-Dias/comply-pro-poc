@@ -49,60 +49,37 @@ interface WebhookPayload {
 
 // Define webhook URLs for default record types
 const WEBHOOK_URLS = {
-	contacts:
+	files:
 		"https://api.integration.app/webhooks/app-events/5cce9363-f191-489c-a738-a8e196be0b3e",
-	companies:
+	folders:
 		"https://api.integration.app/webhooks/app-events/cd9f4430-8f4e-45a4-badd-9d4666078540",
-	// Default URL for custom objects
-	custom:
-		"https://api.integration.app/webhooks/app-events/19c8f829-0723-4030-9164-95398285f5da",
 };
-
-// Get default form types from RECORD_ACTIONS
-const defaultFormTypes = RECORD_ACTIONS.filter(
-	(action) => action.type === "default"
-).map((action) => action.key.replace("get-", ""));
 
 export async function sendToWebhook(payload: any) {
 	try {
-		// Determine if this is a default or custom record type
+		// Get the record type from the payload
 		const recordType = payload.data?.recordType || "";
-
-		// Check if it's a default type by looking at the full action key
-		const isDefaultType = RECORD_ACTIONS.some(
-			(action) => action.key === recordType
-		);
 
 		// Get the form type (remove 'get-' prefix for webhook URL lookup)
 		const formType = recordType.replace("get-", "");
 
 		console.log(
-			`Webhook routing - recordType: ${recordType}, formType: ${formType}, isDefaultType: ${isDefaultType}`
+			`Webhook routing - recordType: ${recordType}, formType: ${formType}`
 		);
 
 		// Select the appropriate webhook URL
-		let webhookUrl = WEBHOOK_URLS.custom;
-		if (isDefaultType && formType in WEBHOOK_URLS) {
-			webhookUrl = WEBHOOK_URLS[formType as keyof typeof WEBHOOK_URLS];
-		}
+		const webhookUrl = WEBHOOK_URLS[formType as keyof typeof WEBHOOK_URLS];
 
-		console.log(`Selected webhook URL: ${webhookUrl}`);
-
-		// Validate webhook URL
-		if (!webhookUrl || webhookUrl.trim() === "") {
+		if (!webhookUrl) {
 			throw new Error(
 				`No webhook URL configured for record type: ${recordType}`
 			);
 		}
 
-		// For custom objects, add instanceKey to the payload
-		let finalPayload = { ...payload };
-		if (!isDefaultType) {
-			finalPayload = {
-				...finalPayload,
-				instanceKey: formType,
-			};
-		}
+		console.log(`Selected webhook URL: ${webhookUrl}`);
+
+		// Use the payload as-is (no instanceKey needed)
+		const finalPayload = { ...payload };
 
 		// Send the webhook
 		const response = await fetch(webhookUrl, {

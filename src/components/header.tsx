@@ -3,13 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function Header() {
 	const [mounted, setMounted] = useState(false);
 	const { theme, setTheme } = useTheme();
+	const pathname = usePathname();
 
 	useEffect(() => {
 		setMounted(true);
@@ -32,28 +35,48 @@ export function Header() {
 						<div className="hidden sm:ml-6 sm:flex sm:space-x-8">
 							<Link
 								href="/"
-								className="inline-flex items-center px-1 pt-1 text-sm font-medium"
+								className={cn(
+									"inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 transition-colors",
+									pathname === "/"
+										? "border-blue-500 text-blue-600 dark:text-blue-400"
+										: "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+								)}
 							>
 								Overview
 							</Link>
 							<Link
 								href="/integrations"
-								className="inline-flex items-center px-1 pt-1 text-sm font-medium"
+								className={cn(
+									"inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 transition-colors",
+									pathname === "/integrations"
+										? "border-blue-500 text-blue-600 dark:text-blue-400"
+										: "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+								)}
 							>
 								Integrations
 							</Link>
 							<Link
 								href="/records"
-								className="inline-flex items-center px-1 pt-1 text-sm font-medium"
+								className={cn(
+									"inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 transition-colors",
+									pathname === "/records"
+										? "border-blue-500 text-blue-600 dark:text-blue-400"
+										: "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+								)}
 							>
 								Records
 							</Link>
 
 							<Link
 								href="/submit-form"
-								className="inline-flex items-center px-1 pt-1 text-sm font-medium"
+								className={cn(
+									"inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 transition-colors",
+									pathname === "/submit-form"
+										? "border-blue-500 text-blue-600 dark:text-blue-400"
+										: "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+								)}
 							>
-								Push information/Submit form
+								Content
 							</Link>
 						</div>
 					</div>
