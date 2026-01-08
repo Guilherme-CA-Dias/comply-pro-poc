@@ -1,0 +1,119 @@
+id: 695d31651b51b86162a073a6
+name: Orders
+uuid: ae818445-e59d-4527-a63f-6a38c5793a63
+key: orders
+state: READY
+errors: []
+revision: 184e3ffa-dfe2-4969-8dd4-e07909bf2e1a
+createdAt: '2026-01-06T15:59:33.840Z'
+updatedAt: '2026-01-06T17:08:15.975Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071cb
+universalFieldMappingId: 695d31651b51b86162a07256
+dataSourceKey: orders
+appSchema:
+  type: object
+  properties:
+    manufacturer:
+      title: Manufacturer
+      type: string
+    supplier_alt_id:
+      title: Supplier Alt ID
+      type: string
+    po_number:
+      title: PO Number
+      type: string
+    po_date:
+      title: PO Date
+      type: string
+    product_name:
+      title: Product Name
+      type: string
+    sku:
+      title: SKU
+      type: string
+    quantity:
+      title: Quantity
+      type: string
+    Invoice_number:
+      title: Invoice Number
+      type: string
+    carrier:
+      title: Carrier
+      type: string
+    bill_of_lading:
+      title: Bill of Lading
+      type: string
+    container:
+      title: Container
+      type: string
+direction: import
+defaultImportValue:
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdTime
+  product_name:
+    $var: $.lineItems[0].name
+  sku:
+    $var: $.lineItems[0].sku
+  quantity:
+    $var: $.lineItems[0].quantity
+defaultExportValue:
+  $var: $
+importValue:
+  po_number:
+    $var: $.PurchaseOrderNumber
+  po_date:
+    $var: $.PurchaseOrderNumber
+  manufacturer:
+    $var: $.Contact.CompanyNumber
+  supplier_alt_id:
+    $var: $.Contact.ContactID
+  product_name:
+    $var: $.LineItems[0].Item.Name
+  sku:
+    $var: $.LineItems[0].ItemCode
+  quantity:
+    $var: $.LineItems[0].Quantity
+  Invoice_number:
+    $var: $.LineItems[0].RepeatingInvoiceID
+  carrier:
+    $tpl:
+      template: '{1767719256825} - {1767719263217}'
+      values:
+        '1767719256825':
+          $var: $.LineItems[0].Tracking[0].Name
+        '1767719263217':
+          $var: $.LineItems[0].Tracking[0].Option
+  bill_of_lading:
+    $var: $.LineItems[0].Tracking[0].TrackingCategoryID
+  container: null
+isCustomized: true
+universalFieldMappingRevision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+integration:
+  id: 695d31631b51b86162a071cb
+  name: Xero
+  uuid: 77cdd4be-0cfe-4fd7-a0a3-40899408bc6a
+  key: xero
+  state: READY
+  errors: []
+  revision: 8c6d950f-246d-43d3-83f3-eb0e7a3723e0
+  createdAt: '2026-01-06T15:59:32.540Z'
+  updatedAt: '2026-01-06T15:59:32.540Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/xero-connector/logo.png
+  connectorId: 642c613b986ed1caad98172b
+  connectorVersion: 1.1.6
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: true
+  operationsCount: 234
+  hasData: true
+  dataCollectionsCount: 18
+  hasEvents: true
+  eventsCount: 1
+  hasGlobalWebhooks: true
+  hasUdm: true
+  authType: oauth2
+integrationKey: xero

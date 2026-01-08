@@ -1,0 +1,24 @@
+id: 695d31631b51b86162a071cd
+name: SAP S4 HANA
+uuid: 367f87e0-a6f9-4b24-aa4a-988a780cbd2f
+key: sap-hana
+state: READY
+errors: []
+revision: fae0ed71-a3f8-494a-95b6-4ca923c46bdc
+createdAt: '2026-01-06T15:59:31.671Z'
+updatedAt: '2026-01-06T15:59:31.671Z'
+isDeactivated: false
+logoUri: https://static.integration.app/connectors/sap-hana-connector/logo.png
+connectorId: 64ff3219f51a74915b79b9a0
+connectorVersion: 1.0.3
+hasMissingParameters: false
+hasDocumentation: false
+hasOperations: false
+operationsCount: 0
+hasData: true
+dataCollectionsCount: 3
+hasEvents: false
+eventsCount: 0
+hasGlobalWebhooks: false
+hasUdm: true
+authType: client-credentials

@@ -1,0 +1,15 @@
+id: 695d31651b51b86162a072c5
+name: Continuously Import Orders to my App
+uuid: a382437a-0200-4df1-bf0f-82fd3e604a7c
+key: continuously-import-orders-to-my-app
+state: READY
+errors: []
+revision: 0b558e8f-6b22-4be3-b2ba-20d96ec9343a
+createdAt: '2026-01-06T15:59:33.721Z'
+updatedAt: '2026-01-08T13:53:02.236Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071d3
+parentId: 695d31651b51b86162a072b3
+isCustomized: false
+isPublic: false
+integrationKey: quickbooks

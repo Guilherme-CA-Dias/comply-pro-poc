@@ -1,0 +1,162 @@
+id: 695d31651b51b86162a07261
+name: Get Orders
+uuid: e1ce3369-5341-42d4-93af-838a645540f0
+key: get-orders
+state: READY
+errors: []
+revision: b492af94-bc36-42d6-bbeb-9f61e45263a3
+createdAt: '2026-01-06T15:59:33.167Z'
+updatedAt: '2026-01-06T16:09:49.394Z'
+isDeactivated: false
+isUniversal: true
+inputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+type: list-data-records
+config:
+  dataSource:
+    key: orders
+  cursor:
+    $var: $.input.cursor
+  fieldMapping:
+    key: orders
+    includeRawFields: true
+isCustomized: false
+outputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+    records:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          uri:
+            type: string
+            format: url
+          createdTime:
+            type: string
+            format: datetime
+          updatedTime:
+            type: string
+            format: datetime
+          deletedTime:
+            type: string
+            format: datetime
+          createdById:
+            type: string
+          updatedById:
+            type: string
+          fields:
+            type: object
+            properties:
+              manufacturer:
+                title: Manufacturer
+                type: string
+              supplier_alt_id:
+                title: Supplier Alt ID
+                type: string
+              po_number:
+                title: PO Number
+                type: string
+              po_date:
+                title: PO Date
+                type: string
+              product_name:
+                title: Product Name
+                type: string
+              sku:
+                title: SKU
+                type: string
+              quantity:
+                title: Quantity
+                type: string
+              Invoice_number:
+                title: Invoice Number
+                type: string
+              carrier:
+                title: Carrier
+                type: string
+              bill_of_lading:
+                title: Bill of Lading
+                type: string
+              container:
+                title: Container
+                type: string
+          rawFields:
+            type: object
+defaultOutputSchema:
+  type: object
+  properties:
+    cursor:
+      type: string
+    records:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          uri:
+            type: string
+            format: url
+          createdTime:
+            type: string
+            format: datetime
+          updatedTime:
+            type: string
+            format: datetime
+          deletedTime:
+            type: string
+            format: datetime
+          createdById:
+            type: string
+          updatedById:
+            type: string
+          fields:
+            type: object
+            properties:
+              manufacturer:
+                title: Manufacturer
+                type: string
+              supplier_alt_id:
+                title: Supplier Alt ID
+                type: string
+              po_number:
+                title: PO Number
+                type: string
+              po_date:
+                title: PO Date
+                type: string
+              product_name:
+                title: Product Name
+                type: string
+              sku:
+                title: SKU
+                type: string
+              quantity:
+                title: Quantity
+                type: string
+              Invoice_number:
+                title: Invoice Number
+                type: string
+              carrier:
+                title: Carrier
+                type: string
+              bill_of_lading:
+                title: Bill of Lading
+                type: string
+              container:
+                title: Container
+                type: string
+          rawFields:
+            type: object

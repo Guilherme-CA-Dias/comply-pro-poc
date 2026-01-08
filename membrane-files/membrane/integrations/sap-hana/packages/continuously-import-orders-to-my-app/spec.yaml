@@ -1,0 +1,15 @@
+id: 695d31661b51b86162a07506
+name: Continuously Import Orders to my App
+uuid: dfa69863-9008-4f19-a68e-c8ea0c04c3fb
+key: continuously-import-orders-to-my-app
+state: READY
+errors: []
+revision: 0b558e8f-6b22-4be3-b2ba-20d96ec9343a
+createdAt: '2026-01-06T15:59:35.095Z'
+updatedAt: '2026-01-06T15:59:35.117Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071cd
+parentId: 695d31651b51b86162a072b3
+isCustomized: false
+isPublic: false
+integrationKey: sap-hana

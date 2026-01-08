@@ -1,0 +1,611 @@
+id: 695d31651b51b86162a07281
+name: Receive Order Events
+uuid: a3bc36cc-2c6a-44c5-a6ca-ac97e194eecb
+key: receive-order-events
+state: READY
+errors: []
+revision: 3d2c5443-ca80-4548-99c2-4170602ab848
+createdAt: '2026-01-06T15:59:33.286Z'
+updatedAt: '2026-01-08T14:04:04.285Z'
+isDeactivated: false
+nodes:
+  order-created-trigger:
+    type: data-record-created-trigger
+    name: Order Created Trigger
+    config:
+      dataSource:
+        key: orders
+    outputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+        record:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+      title: Order Created Trigger
+    links:
+      - key: get-all-order-fields-by-id
+  order-updated-trigger:
+    type: data-record-updated-trigger
+    name: Order Updated Trigger
+    config:
+      dataSource:
+        key: orders
+    outputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+        record:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+      title: Order Updated Trigger
+    links:
+      - key: get-orders
+  get-all-order-fields-by-id:
+    type: find-data-record-by-id
+    name: Get all Order fields by Id
+    config:
+      dataSource:
+        key: orders
+      fieldMapping:
+        key: orders
+        includeRawFields: true
+      id:
+        $var: $.input.order-created-trigger.record.id
+    outputSchema:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        uri:
+          type: string
+          format: url
+        createdTime:
+          type: string
+          format: datetime
+        updatedTime:
+          type: string
+          format: datetime
+        deletedTime:
+          type: string
+          format: datetime
+        createdById:
+          type: string
+        updatedById:
+          type: string
+        fields:
+          type: object
+          properties:
+            manufacturer:
+              title: Manufacturer
+              type: string
+            supplier_alt_id:
+              title: Supplier Alt ID
+              type: string
+            po_number:
+              title: PO Number
+              type: string
+            po_date:
+              title: PO Date
+              type: string
+            product_name:
+              title: Product Name
+              type: string
+            sku:
+              title: SKU
+              type: string
+            quantity:
+              title: Quantity
+              type: string
+            Invoice_number:
+              title: Invoice Number
+              type: string
+            carrier:
+              title: Carrier
+              type: string
+            bill_of_lading:
+              title: Bill of Lading
+              type: string
+            container:
+              title: Container
+              type: string
+        rawFields:
+          type: object
+      title: Get all Order fields by Id
+    links:
+      - key: create-order-in-my-app
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-created-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+          title: Order Created Trigger
+  create-order-in-my-app:
+    type: api-request-to-your-app
+    name: Create Order in my App
+    config:
+      request:
+        body:
+          customerId:
+            $var: $.user.internalId
+          data:
+            $var: $.input.get-all-order-fields-by-id
+          recordType: get-orders
+        uri: /api/webhooks
+        method: POST
+    outputSchema:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            data: {}
+      title: Create Order in my App
+    links: []
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-created-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+          title: Order Created Trigger
+        get-all-order-fields-by-id:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+              properties:
+                manufacturer:
+                  title: Manufacturer
+                  type: string
+                supplier_alt_id:
+                  title: Supplier Alt ID
+                  type: string
+                po_number:
+                  title: PO Number
+                  type: string
+                po_date:
+                  title: PO Date
+                  type: string
+                product_name:
+                  title: Product Name
+                  type: string
+                sku:
+                  title: SKU
+                  type: string
+                quantity:
+                  title: Quantity
+                  type: string
+                Invoice_number:
+                  title: Invoice Number
+                  type: string
+                carrier:
+                  title: Carrier
+                  type: string
+                bill_of_lading:
+                  title: Bill of Lading
+                  type: string
+                container:
+                  title: Container
+                  type: string
+            rawFields:
+              type: object
+          title: Get all Order fields by Id
+  delete-order-in-my-app:
+    type: api-request-to-your-app
+    name: Delete Order from My App
+    config:
+      request:
+        body:
+          customerId:
+            $var: $.user.internalId
+          recordType: get-orders
+          recordId:
+            $var: $.input.order-deleted-trigger.record.id
+        method: DELETE
+        uri: /api/webhooks
+    outputSchema:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            data: {}
+      title: Delete Order from My App
+    links: []
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-deleted-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+          title: Order Deleted Trigger
+  order-deleted-trigger:
+    type: data-record-deleted-trigger
+    name: Order Deleted Trigger
+    config:
+      dataSource:
+        key: orders
+    outputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+        record:
+          type: object
+          properties:
+            id:
+              type: string
+      title: Order Deleted Trigger
+    links:
+      - key: delete-order-in-my-app
+  get-orders:
+    type: find-data-record-by-id
+    name: Get all Order fields by Id
+    config:
+      dataSource:
+        key: orders
+      fieldMapping:
+        key: orders
+        includeRawFields: true
+      id:
+        $var: $.input.order-updated-trigger.record.id
+    outputSchema:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        uri:
+          type: string
+          format: url
+        createdTime:
+          type: string
+          format: datetime
+        updatedTime:
+          type: string
+          format: datetime
+        deletedTime:
+          type: string
+          format: datetime
+        createdById:
+          type: string
+        updatedById:
+          type: string
+        fields:
+          type: object
+          properties:
+            manufacturer:
+              title: Manufacturer
+              type: string
+            supplier_alt_id:
+              title: Supplier Alt ID
+              type: string
+            po_number:
+              title: PO Number
+              type: string
+            po_date:
+              title: PO Date
+              type: string
+            product_name:
+              title: Product Name
+              type: string
+            sku:
+              title: SKU
+              type: string
+            quantity:
+              title: Quantity
+              type: string
+            Invoice_number:
+              title: Invoice Number
+              type: string
+            carrier:
+              title: Carrier
+              type: string
+            bill_of_lading:
+              title: Bill of Lading
+              type: string
+            container:
+              title: Container
+              type: string
+        rawFields:
+          type: object
+      title: Get all Order fields by Id
+    links:
+      - key: update-order-in-my-app
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-updated-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+          title: Order Updated Trigger
+  update-order-in-my-app:
+    type: api-request-to-your-app
+    name: Update order in my App
+    config:
+      request:
+        uri: /api/webhooks
+        method: PATCH
+        body:
+          customerId:
+            $var: $.user.internalId
+          recordType: get-orders
+          data:
+            $var: $.input.get-orders
+    outputSchema:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            data: {}
+      title: Update order in my App
+    links: []
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-updated-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+          title: Order Updated Trigger
+        get-orders:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+              properties:
+                manufacturer:
+                  title: Manufacturer
+                  type: string
+                supplier_alt_id:
+                  title: Supplier Alt ID
+                  type: string
+                po_number:
+                  title: PO Number
+                  type: string
+                po_date:
+                  title: PO Date
+                  type: string
+                product_name:
+                  title: Product Name
+                  type: string
+                sku:
+                  title: SKU
+                  type: string
+                quantity:
+                  title: Quantity
+                  type: string
+                Invoice_number:
+                  title: Invoice Number
+                  type: string
+                carrier:
+                  title: Carrier
+                  type: string
+                bill_of_lading:
+                  title: Bill of Lading
+                  type: string
+                container:
+                  title: Container
+                  type: string
+            rawFields:
+              type: object
+          title: Get all Order fields by Id
+autoCreateInstances: false
+isCustomized: true

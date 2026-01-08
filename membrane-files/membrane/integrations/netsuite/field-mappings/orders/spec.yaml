@@ -1,0 +1,97 @@
+id: 695d31661b51b86162a07457
+name: Orders
+uuid: ecd529df-5a3c-425f-a6c5-773b41d7b28d
+key: orders
+state: READY
+errors: []
+revision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+createdAt: '2026-01-06T15:59:34.301Z'
+updatedAt: '2026-01-06T16:12:42.439Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071c9
+universalFieldMappingId: 695d31651b51b86162a07256
+dataSourceKey: orders
+appSchema:
+  type: object
+  properties:
+    manufacturer:
+      title: Manufacturer
+      type: string
+    supplier_alt_id:
+      title: Supplier Alt ID
+      type: string
+    po_number:
+      title: PO Number
+      type: string
+    po_date:
+      title: PO Date
+      type: string
+    product_name:
+      title: Product Name
+      type: string
+    sku:
+      title: SKU
+      type: string
+    quantity:
+      title: Quantity
+      type: string
+    Invoice_number:
+      title: Invoice Number
+      type: string
+    carrier:
+      title: Carrier
+      type: string
+    bill_of_lading:
+      title: Bill of Lading
+      type: string
+    container:
+      title: Container
+      type: string
+direction: import
+defaultImportValue:
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdTime
+  product_name:
+    $var: $.lineItems[0].name
+  sku:
+    $var: $.lineItems[0].sku
+  quantity:
+    $var: $.lineItems[0].quantity
+defaultExportValue:
+  $var: $
+importValue:
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdDate
+isCustomized: false
+universalFieldMappingRevision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+integration:
+  id: 695d31631b51b86162a071c9
+  name: NetSuite
+  uuid: b8992444-c5f7-4626-ab6a-47572a4fec19
+  key: netsuite
+  state: READY
+  errors: []
+  revision: 5a20da09-4169-4ba3-a051-694d0b2d4ddc
+  createdAt: '2026-01-06T15:59:32.806Z'
+  updatedAt: '2026-01-06T15:59:32.806Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/netsuite/logo-6f430e16-656a-4033-94e6-736f9adf35be.png
+  connectorId: 6525b75870089fac48f52375
+  connectorVersion: 2.0.6
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1349
+  hasData: true
+  dataCollectionsCount: 18
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2
+integrationKey: netsuite

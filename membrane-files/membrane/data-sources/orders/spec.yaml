@@ -1,0 +1,15 @@
+id: 695d31651b51b86162a0724d
+name: Orders
+uuid: a00de020-2566-46ff-b838-acfb34b6e252
+key: orders
+state: READY
+errors: []
+revision: 9893755a-4145-4c74-b5c7-9a587138decb
+createdAt: '2026-01-06T15:59:33.089Z'
+updatedAt: '2026-01-08T14:04:03.795Z'
+isDeactivated: false
+isUniversal: true
+udm: orders
+pullUpdatesIntervalSeconds: 86400
+fullSyncIntervalSeconds: 86400
+isCustomized: true

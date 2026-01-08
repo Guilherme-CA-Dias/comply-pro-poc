@@ -1,0 +1,43 @@
+id: 695d31661b51b86162a07448
+name: Orders
+uuid: 35a1f8f6-1c4b-401c-b1d5-907b2a0b5af9
+key: orders
+state: READY
+errors: []
+revision: 551e3cf2-03bf-4284-bf1f-5b390f0f1311
+createdAt: '2026-01-06T15:59:34.125Z'
+updatedAt: '2026-01-06T16:01:14.729Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071c9
+universalDataSourceId: 695d31651b51b86162a0724d
+udm: orders
+collectionKey: purchase-orders
+isCustomized: true
+universalDataSourceRevision: 03e6792b-347d-4cca-88a4-5933b2bbdfbf
+integration:
+  id: 695d31631b51b86162a071c9
+  name: NetSuite
+  uuid: b8992444-c5f7-4626-ab6a-47572a4fec19
+  key: netsuite
+  state: READY
+  errors: []
+  revision: 5a20da09-4169-4ba3-a051-694d0b2d4ddc
+  createdAt: '2026-01-06T15:59:32.806Z'
+  updatedAt: '2026-01-06T15:59:32.806Z'
+  isDeactivated: false
+  logoUri: >-
+    https://static.integration.app/connectors/netsuite/logo-6f430e16-656a-4033-94e6-736f9adf35be.png
+  connectorId: 6525b75870089fac48f52375
+  connectorVersion: 2.0.6
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 1349
+  hasData: true
+  dataCollectionsCount: 18
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2
+integrationKey: netsuite

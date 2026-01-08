@@ -1,0 +1,15 @@
+id: 695d31651b51b86162a0738a
+name: Continuously Import Orders to my App
+uuid: 4276a2a9-cc55-458b-a9bc-baa8a50a0465
+key: continuously-import-orders-to-my-app
+state: READY
+errors: []
+revision: 0b558e8f-6b22-4be3-b2ba-20d96ec9343a
+createdAt: '2026-01-06T15:59:34.063Z'
+updatedAt: '2026-01-06T15:59:34.088Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071cb
+parentId: 695d31651b51b86162a072b3
+isCustomized: false
+isPublic: false
+integrationKey: xero

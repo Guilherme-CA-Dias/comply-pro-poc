@@ -1,0 +1,1994 @@
+id: 695d31651b51b86162a07327
+name: Receive Order Events
+uuid: 65adfb67-9781-4218-a45a-71e5ec401d74
+key: receive-order-events
+state: READY
+errors: []
+revision: 3d2c5443-ca80-4548-99c2-4170602ab848
+createdAt: '2026-01-06T15:59:33.672Z'
+updatedAt: '2026-01-08T14:04:04.775Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071d3
+universalFlowId: 695d31651b51b86162a07281
+nodes:
+  order-created-trigger:
+    type: data-record-created-trigger
+    name: Order Created Trigger
+    config:
+      dataSource:
+        key: orders
+      fieldMapping: {}
+    outputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+        record:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+              properties:
+                DocNumber:
+                  type: string
+                SyncToken:
+                  type: string
+                POEmail:
+                  type: object
+                  properties:
+                    Address:
+                      type: string
+                APAccountRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                CurrencyRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                TxnDate:
+                  type: string
+                TotalAmt:
+                  type: integer
+                ShipAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                domain:
+                  type: string
+                Id:
+                  type: string
+                POStatus:
+                  type: string
+                sparse:
+                  type: boolean
+                EmailStatus:
+                  type: string
+                VendorRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                      referenceCollection:
+                        key: vendors
+                Line:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DetailType:
+                        type: string
+                      Amount:
+                        type: integer
+                      ProjectRef:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                      Id:
+                        type: string
+                      ItemBasedExpenseLineDetail:
+                        type: object
+                        properties:
+                          ItemRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          CustomerRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          Qty:
+                            type: integer
+                          TaxCodeRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          BillableStatus:
+                            type: string
+                          UnitPrice:
+                            type: integer
+                CustomField:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DefinitionId:
+                        type: string
+                      Type:
+                        type: string
+                      Name:
+                        type: string
+                VendorAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                MetaData:
+                  type: object
+                  properties:
+                    CreateTime:
+                      type: string
+                    LastUpdatedTime:
+                      type: string
+      title: Order Created Trigger
+    links:
+      - key: get-all-order-fields-by-id
+  order-updated-trigger:
+    type: data-record-updated-trigger
+    name: Order Updated Trigger
+    config:
+      dataSource:
+        key: orders
+      fieldMapping: {}
+    outputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+        record:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+              properties:
+                DocNumber:
+                  type: string
+                SyncToken:
+                  type: string
+                POEmail:
+                  type: object
+                  properties:
+                    Address:
+                      type: string
+                APAccountRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                CurrencyRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                TxnDate:
+                  type: string
+                TotalAmt:
+                  type: integer
+                ShipAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                domain:
+                  type: string
+                Id:
+                  type: string
+                POStatus:
+                  type: string
+                sparse:
+                  type: boolean
+                EmailStatus:
+                  type: string
+                VendorRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                      referenceCollection:
+                        key: vendors
+                Line:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DetailType:
+                        type: string
+                      Amount:
+                        type: integer
+                      ProjectRef:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                      Id:
+                        type: string
+                      ItemBasedExpenseLineDetail:
+                        type: object
+                        properties:
+                          ItemRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          CustomerRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          Qty:
+                            type: integer
+                          TaxCodeRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          BillableStatus:
+                            type: string
+                          UnitPrice:
+                            type: integer
+                CustomField:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DefinitionId:
+                        type: string
+                      Type:
+                        type: string
+                      Name:
+                        type: string
+                VendorAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                MetaData:
+                  type: object
+                  properties:
+                    CreateTime:
+                      type: string
+                    LastUpdatedTime:
+                      type: string
+      title: Order Updated Trigger
+    links:
+      - key: get-orders
+  get-all-order-fields-by-id:
+    type: find-data-record-by-id
+    name: Get all Order fields by Id
+    config:
+      dataSource:
+        key: orders
+      fieldMapping:
+        key: orders
+        includeRawFields: true
+      id:
+        $var: $.input.order-created-trigger.record.id
+    outputSchema:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        uri:
+          type: string
+          format: url
+        createdTime:
+          type: string
+          format: datetime
+        updatedTime:
+          type: string
+          format: datetime
+        deletedTime:
+          type: string
+          format: datetime
+        createdById:
+          type: string
+        updatedById:
+          type: string
+        fields:
+          type: object
+          properties:
+            manufacturer:
+              title: Manufacturer
+              type: string
+            supplier_alt_id:
+              title: Supplier Alt ID
+              type: string
+            po_number:
+              title: PO Number
+              type: string
+            po_date:
+              title: PO Date
+              type: string
+            product_name:
+              title: Product Name
+              type: string
+            sku:
+              title: SKU
+              type: string
+            quantity:
+              title: Quantity
+              type: string
+            Invoice_number:
+              title: Invoice Number
+              type: string
+            carrier:
+              title: Carrier
+              type: string
+            bill_of_lading:
+              title: Bill of Lading
+              type: string
+            container:
+              title: Container
+              type: string
+        rawFields:
+          type: object
+          properties:
+            DocNumber:
+              type: string
+            SyncToken:
+              type: string
+            POEmail:
+              type: object
+              properties:
+                Address:
+                  type: string
+            APAccountRef:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+            CurrencyRef:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+            TxnDate:
+              type: string
+            TotalAmt:
+              type: integer
+            ShipAddr:
+              type: object
+              properties:
+                Line4:
+                  type: string
+                Line3:
+                  type: string
+                Id:
+                  type: string
+                Line1:
+                  type: string
+                Line2:
+                  type: string
+            domain:
+              type: string
+            Id:
+              type: string
+            POStatus:
+              type: string
+            sparse:
+              type: boolean
+            EmailStatus:
+              type: string
+            VendorRef:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+                  referenceCollection:
+                    key: vendors
+            Line:
+              type: array
+              items:
+                type: object
+                properties:
+                  DetailType:
+                    type: string
+                  Amount:
+                    type: integer
+                  ProjectRef:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                  Id:
+                    type: string
+                  ItemBasedExpenseLineDetail:
+                    type: object
+                    properties:
+                      ItemRef:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                      CustomerRef:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                      Qty:
+                        type: integer
+                      TaxCodeRef:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                      BillableStatus:
+                        type: string
+                      UnitPrice:
+                        type: integer
+            CustomField:
+              type: array
+              items:
+                type: object
+                properties:
+                  DefinitionId:
+                    type: string
+                  Type:
+                    type: string
+                  Name:
+                    type: string
+            VendorAddr:
+              type: object
+              properties:
+                Line4:
+                  type: string
+                Line3:
+                  type: string
+                Id:
+                  type: string
+                Line1:
+                  type: string
+                Line2:
+                  type: string
+            MetaData:
+              type: object
+              properties:
+                CreateTime:
+                  type: string
+                LastUpdatedTime:
+                  type: string
+      title: Get all Order fields by Id
+    links:
+      - key: create-order-in-my-app
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-created-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+                  properties:
+                    DocNumber:
+                      type: string
+                    SyncToken:
+                      type: string
+                    POEmail:
+                      type: object
+                      properties:
+                        Address:
+                          type: string
+                    APAccountRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    CurrencyRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    TxnDate:
+                      type: string
+                    TotalAmt:
+                      type: integer
+                    ShipAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    domain:
+                      type: string
+                    Id:
+                      type: string
+                    POStatus:
+                      type: string
+                    sparse:
+                      type: boolean
+                    EmailStatus:
+                      type: string
+                    VendorRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                          referenceCollection:
+                            key: vendors
+                    Line:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DetailType:
+                            type: string
+                          Amount:
+                            type: integer
+                          ProjectRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          Id:
+                            type: string
+                          ItemBasedExpenseLineDetail:
+                            type: object
+                            properties:
+                              ItemRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              CustomerRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              Qty:
+                                type: integer
+                              TaxCodeRef:
+                                type: object
+                                properties:
+                                  value:
+                                    type: string
+                              BillableStatus:
+                                type: string
+                              UnitPrice:
+                                type: integer
+                    CustomField:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DefinitionId:
+                            type: string
+                          Type:
+                            type: string
+                          Name:
+                            type: string
+                    VendorAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    MetaData:
+                      type: object
+                      properties:
+                        CreateTime:
+                          type: string
+                        LastUpdatedTime:
+                          type: string
+          title: Order Created Trigger
+  create-order-in-my-app:
+    type: api-request-to-your-app
+    name: Create Order in my App
+    config:
+      request:
+        body:
+          customerId:
+            $var: $.user.internalId
+          data:
+            $var: $.input.get-all-order-fields-by-id
+          recordType: get-orders
+        uri: /api/webhooks
+        method: POST
+    outputSchema:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            data: {}
+      title: Create Order in my App
+    links: []
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-created-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+                  properties:
+                    DocNumber:
+                      type: string
+                    SyncToken:
+                      type: string
+                    POEmail:
+                      type: object
+                      properties:
+                        Address:
+                          type: string
+                    APAccountRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    CurrencyRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    TxnDate:
+                      type: string
+                    TotalAmt:
+                      type: integer
+                    ShipAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    domain:
+                      type: string
+                    Id:
+                      type: string
+                    POStatus:
+                      type: string
+                    sparse:
+                      type: boolean
+                    EmailStatus:
+                      type: string
+                    VendorRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                          referenceCollection:
+                            key: vendors
+                    Line:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DetailType:
+                            type: string
+                          Amount:
+                            type: integer
+                          ProjectRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          Id:
+                            type: string
+                          ItemBasedExpenseLineDetail:
+                            type: object
+                            properties:
+                              ItemRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              CustomerRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              Qty:
+                                type: integer
+                              TaxCodeRef:
+                                type: object
+                                properties:
+                                  value:
+                                    type: string
+                              BillableStatus:
+                                type: string
+                              UnitPrice:
+                                type: integer
+                    CustomField:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DefinitionId:
+                            type: string
+                          Type:
+                            type: string
+                          Name:
+                            type: string
+                    VendorAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    MetaData:
+                      type: object
+                      properties:
+                        CreateTime:
+                          type: string
+                        LastUpdatedTime:
+                          type: string
+          title: Order Created Trigger
+        get-all-order-fields-by-id:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+              properties:
+                manufacturer:
+                  title: Manufacturer
+                  type: string
+                supplier_alt_id:
+                  title: Supplier Alt ID
+                  type: string
+                po_number:
+                  title: PO Number
+                  type: string
+                po_date:
+                  title: PO Date
+                  type: string
+                product_name:
+                  title: Product Name
+                  type: string
+                sku:
+                  title: SKU
+                  type: string
+                quantity:
+                  title: Quantity
+                  type: string
+                Invoice_number:
+                  title: Invoice Number
+                  type: string
+                carrier:
+                  title: Carrier
+                  type: string
+                bill_of_lading:
+                  title: Bill of Lading
+                  type: string
+                container:
+                  title: Container
+                  type: string
+            rawFields:
+              type: object
+              properties:
+                DocNumber:
+                  type: string
+                SyncToken:
+                  type: string
+                POEmail:
+                  type: object
+                  properties:
+                    Address:
+                      type: string
+                APAccountRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                CurrencyRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                TxnDate:
+                  type: string
+                TotalAmt:
+                  type: integer
+                ShipAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                domain:
+                  type: string
+                Id:
+                  type: string
+                POStatus:
+                  type: string
+                sparse:
+                  type: boolean
+                EmailStatus:
+                  type: string
+                VendorRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                      referenceCollection:
+                        key: vendors
+                Line:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DetailType:
+                        type: string
+                      Amount:
+                        type: integer
+                      ProjectRef:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                      Id:
+                        type: string
+                      ItemBasedExpenseLineDetail:
+                        type: object
+                        properties:
+                          ItemRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          CustomerRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          Qty:
+                            type: integer
+                          TaxCodeRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          BillableStatus:
+                            type: string
+                          UnitPrice:
+                            type: integer
+                CustomField:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DefinitionId:
+                        type: string
+                      Type:
+                        type: string
+                      Name:
+                        type: string
+                VendorAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                MetaData:
+                  type: object
+                  properties:
+                    CreateTime:
+                      type: string
+                    LastUpdatedTime:
+                      type: string
+          title: Get all Order fields by Id
+  delete-order-in-my-app:
+    type: api-request-to-your-app
+    name: Delete Order from My App
+    config:
+      request:
+        body:
+          customerId:
+            $var: $.user.internalId
+          recordType: get-orders
+          recordId:
+            $var: $.input.order-deleted-trigger.record.id
+        method: DELETE
+        uri: /api/webhooks
+    outputSchema:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            data: {}
+      title: Delete Order from My App
+    links: []
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-deleted-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+          title: Order Deleted Trigger
+  order-deleted-trigger:
+    type: data-record-deleted-trigger
+    name: Order Deleted Trigger
+    config:
+      dataSource:
+        key: orders
+      fieldMapping: {}
+    outputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+        record:
+          type: object
+          properties:
+            id:
+              type: string
+      title: Order Deleted Trigger
+    links:
+      - key: delete-order-in-my-app
+  get-orders:
+    type: find-data-record-by-id
+    name: Get all Order fields by Id
+    config:
+      dataSource:
+        key: orders
+      fieldMapping:
+        key: orders
+        includeRawFields: true
+      id:
+        $var: $.input.order-updated-trigger.record.id
+    outputSchema:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        uri:
+          type: string
+          format: url
+        createdTime:
+          type: string
+          format: datetime
+        updatedTime:
+          type: string
+          format: datetime
+        deletedTime:
+          type: string
+          format: datetime
+        createdById:
+          type: string
+        updatedById:
+          type: string
+        fields:
+          type: object
+          properties:
+            manufacturer:
+              title: Manufacturer
+              type: string
+            supplier_alt_id:
+              title: Supplier Alt ID
+              type: string
+            po_number:
+              title: PO Number
+              type: string
+            po_date:
+              title: PO Date
+              type: string
+            product_name:
+              title: Product Name
+              type: string
+            sku:
+              title: SKU
+              type: string
+            quantity:
+              title: Quantity
+              type: string
+            Invoice_number:
+              title: Invoice Number
+              type: string
+            carrier:
+              title: Carrier
+              type: string
+            bill_of_lading:
+              title: Bill of Lading
+              type: string
+            container:
+              title: Container
+              type: string
+        rawFields:
+          type: object
+          properties:
+            DocNumber:
+              type: string
+            SyncToken:
+              type: string
+            POEmail:
+              type: object
+              properties:
+                Address:
+                  type: string
+            APAccountRef:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+            CurrencyRef:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+            TxnDate:
+              type: string
+            TotalAmt:
+              type: integer
+            ShipAddr:
+              type: object
+              properties:
+                Line4:
+                  type: string
+                Line3:
+                  type: string
+                Id:
+                  type: string
+                Line1:
+                  type: string
+                Line2:
+                  type: string
+            domain:
+              type: string
+            Id:
+              type: string
+            POStatus:
+              type: string
+            sparse:
+              type: boolean
+            EmailStatus:
+              type: string
+            VendorRef:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+                  referenceCollection:
+                    key: vendors
+            Line:
+              type: array
+              items:
+                type: object
+                properties:
+                  DetailType:
+                    type: string
+                  Amount:
+                    type: integer
+                  ProjectRef:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                  Id:
+                    type: string
+                  ItemBasedExpenseLineDetail:
+                    type: object
+                    properties:
+                      ItemRef:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                      CustomerRef:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                      Qty:
+                        type: integer
+                      TaxCodeRef:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                      BillableStatus:
+                        type: string
+                      UnitPrice:
+                        type: integer
+            CustomField:
+              type: array
+              items:
+                type: object
+                properties:
+                  DefinitionId:
+                    type: string
+                  Type:
+                    type: string
+                  Name:
+                    type: string
+            VendorAddr:
+              type: object
+              properties:
+                Line4:
+                  type: string
+                Line3:
+                  type: string
+                Id:
+                  type: string
+                Line1:
+                  type: string
+                Line2:
+                  type: string
+            MetaData:
+              type: object
+              properties:
+                CreateTime:
+                  type: string
+                LastUpdatedTime:
+                  type: string
+      title: Get all Order fields by Id
+    links:
+      - key: update-order-in-my-app
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-updated-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+                  properties:
+                    DocNumber:
+                      type: string
+                    SyncToken:
+                      type: string
+                    POEmail:
+                      type: object
+                      properties:
+                        Address:
+                          type: string
+                    APAccountRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    CurrencyRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    TxnDate:
+                      type: string
+                    TotalAmt:
+                      type: integer
+                    ShipAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    domain:
+                      type: string
+                    Id:
+                      type: string
+                    POStatus:
+                      type: string
+                    sparse:
+                      type: boolean
+                    EmailStatus:
+                      type: string
+                    VendorRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                          referenceCollection:
+                            key: vendors
+                    Line:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DetailType:
+                            type: string
+                          Amount:
+                            type: integer
+                          ProjectRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          Id:
+                            type: string
+                          ItemBasedExpenseLineDetail:
+                            type: object
+                            properties:
+                              ItemRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              CustomerRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              Qty:
+                                type: integer
+                              TaxCodeRef:
+                                type: object
+                                properties:
+                                  value:
+                                    type: string
+                              BillableStatus:
+                                type: string
+                              UnitPrice:
+                                type: integer
+                    CustomField:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DefinitionId:
+                            type: string
+                          Type:
+                            type: string
+                          Name:
+                            type: string
+                    VendorAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    MetaData:
+                      type: object
+                      properties:
+                        CreateTime:
+                          type: string
+                        LastUpdatedTime:
+                          type: string
+          title: Order Updated Trigger
+  update-order-in-my-app:
+    type: api-request-to-your-app
+    name: Update order in my App
+    config:
+      request:
+        uri: /api/webhooks
+        method: PATCH
+        body:
+          customerId:
+            $var: $.user.internalId
+          recordType: get-orders
+          data:
+            $var: $.input.get-orders
+    outputSchema:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            data: {}
+      title: Update order in my App
+    links: []
+    inputSchema:
+      type: object
+      title: Previous Steps
+      properties:
+        order-updated-trigger:
+          type: object
+          properties:
+            type:
+              type: string
+            record:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                uri:
+                  type: string
+                  format: url
+                createdTime:
+                  type: string
+                  format: datetime
+                updatedTime:
+                  type: string
+                  format: datetime
+                deletedTime:
+                  type: string
+                  format: datetime
+                createdById:
+                  type: string
+                updatedById:
+                  type: string
+                fields:
+                  type: object
+                  properties:
+                    DocNumber:
+                      type: string
+                    SyncToken:
+                      type: string
+                    POEmail:
+                      type: object
+                      properties:
+                        Address:
+                          type: string
+                    APAccountRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    CurrencyRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                    TxnDate:
+                      type: string
+                    TotalAmt:
+                      type: integer
+                    ShipAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    domain:
+                      type: string
+                    Id:
+                      type: string
+                    POStatus:
+                      type: string
+                    sparse:
+                      type: boolean
+                    EmailStatus:
+                      type: string
+                    VendorRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                          referenceCollection:
+                            key: vendors
+                    Line:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DetailType:
+                            type: string
+                          Amount:
+                            type: integer
+                          ProjectRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          Id:
+                            type: string
+                          ItemBasedExpenseLineDetail:
+                            type: object
+                            properties:
+                              ItemRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              CustomerRef:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  value:
+                                    type: string
+                              Qty:
+                                type: integer
+                              TaxCodeRef:
+                                type: object
+                                properties:
+                                  value:
+                                    type: string
+                              BillableStatus:
+                                type: string
+                              UnitPrice:
+                                type: integer
+                    CustomField:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          DefinitionId:
+                            type: string
+                          Type:
+                            type: string
+                          Name:
+                            type: string
+                    VendorAddr:
+                      type: object
+                      properties:
+                        Line4:
+                          type: string
+                        Line3:
+                          type: string
+                        Id:
+                          type: string
+                        Line1:
+                          type: string
+                        Line2:
+                          type: string
+                    MetaData:
+                      type: object
+                      properties:
+                        CreateTime:
+                          type: string
+                        LastUpdatedTime:
+                          type: string
+          title: Order Updated Trigger
+        get-orders:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            uri:
+              type: string
+              format: url
+            createdTime:
+              type: string
+              format: datetime
+            updatedTime:
+              type: string
+              format: datetime
+            deletedTime:
+              type: string
+              format: datetime
+            createdById:
+              type: string
+            updatedById:
+              type: string
+            fields:
+              type: object
+              properties:
+                manufacturer:
+                  title: Manufacturer
+                  type: string
+                supplier_alt_id:
+                  title: Supplier Alt ID
+                  type: string
+                po_number:
+                  title: PO Number
+                  type: string
+                po_date:
+                  title: PO Date
+                  type: string
+                product_name:
+                  title: Product Name
+                  type: string
+                sku:
+                  title: SKU
+                  type: string
+                quantity:
+                  title: Quantity
+                  type: string
+                Invoice_number:
+                  title: Invoice Number
+                  type: string
+                carrier:
+                  title: Carrier
+                  type: string
+                bill_of_lading:
+                  title: Bill of Lading
+                  type: string
+                container:
+                  title: Container
+                  type: string
+            rawFields:
+              type: object
+              properties:
+                DocNumber:
+                  type: string
+                SyncToken:
+                  type: string
+                POEmail:
+                  type: object
+                  properties:
+                    Address:
+                      type: string
+                APAccountRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                CurrencyRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                TxnDate:
+                  type: string
+                TotalAmt:
+                  type: integer
+                ShipAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                domain:
+                  type: string
+                Id:
+                  type: string
+                POStatus:
+                  type: string
+                sparse:
+                  type: boolean
+                EmailStatus:
+                  type: string
+                VendorRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                      referenceCollection:
+                        key: vendors
+                Line:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DetailType:
+                        type: string
+                      Amount:
+                        type: integer
+                      ProjectRef:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                      Id:
+                        type: string
+                      ItemBasedExpenseLineDetail:
+                        type: object
+                        properties:
+                          ItemRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          CustomerRef:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                          Qty:
+                            type: integer
+                          TaxCodeRef:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                          BillableStatus:
+                            type: string
+                          UnitPrice:
+                            type: integer
+                CustomField:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      DefinitionId:
+                        type: string
+                      Type:
+                        type: string
+                      Name:
+                        type: string
+                VendorAddr:
+                  type: object
+                  properties:
+                    Line4:
+                      type: string
+                    Line3:
+                      type: string
+                    Id:
+                      type: string
+                    Line1:
+                      type: string
+                    Line2:
+                      type: string
+                MetaData:
+                  type: object
+                  properties:
+                    CreateTime:
+                      type: string
+                    LastUpdatedTime:
+                      type: string
+          title: Get all Order fields by Id
+autoCreateInstances: false
+isCustomized: false
+universalFlowRevision: 3d2c5443-ca80-4548-99c2-4170602ab848
+integration:
+  id: 695d31631b51b86162a071d3
+  name: Quickbooks
+  uuid: 8799b01d-9331-4819-9148-a21368921412
+  key: quickbooks
+  state: READY
+  errors: []
+  revision: a907c53c-9475-47d1-9d8e-29d071f06061
+  createdAt: '2026-01-06T15:59:33.050Z'
+  updatedAt: '2026-01-08T13:53:01.808Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/quickbooks-connector/logo.png
+  connectorId: 642b0c74c594903351a00870
+  connectorVersion: 1.1.20
+  oAuthCallbackUri: https://api.integration.app/oauth-callback
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 86
+  hasData: true
+  dataCollectionsCount: 29
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2
+integrationKey: quickbooks

@@ -1,0 +1,109 @@
+id: 695d31651b51b86162a072f8
+name: Orders
+uuid: b8d4fa9e-29fa-4aba-a2bf-24464317bac2
+key: orders
+state: READY
+errors: []
+revision: d2297b4b-4623-4100-8184-190012c40833
+createdAt: '2026-01-06T15:59:33.476Z'
+updatedAt: '2026-01-06T17:12:14.307Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071d3
+universalFieldMappingId: 695d31651b51b86162a07256
+dataSourceKey: orders
+appSchema:
+  type: object
+  properties:
+    manufacturer:
+      title: Manufacturer
+      type: string
+    supplier_alt_id:
+      title: Supplier Alt ID
+      type: string
+    po_number:
+      title: PO Number
+      type: string
+    po_date:
+      title: PO Date
+      type: string
+    product_name:
+      title: Product Name
+      type: string
+    sku:
+      title: SKU
+      type: string
+    quantity:
+      title: Quantity
+      type: string
+    Invoice_number:
+      title: Invoice Number
+      type: string
+    carrier:
+      title: Carrier
+      type: string
+    bill_of_lading:
+      title: Bill of Lading
+      type: string
+    container:
+      title: Container
+      type: string
+direction: import
+defaultImportValue:
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdTime
+  product_name:
+    $var: $.lineItems[0].name
+  sku:
+    $var: $.lineItems[0].sku
+  quantity:
+    $var: $.lineItems[0].quantity
+defaultExportValue:
+  $var: $
+importValue:
+  manufacturer:
+    $var: $.VendorRef.name
+  supplier_alt_id:
+    $var: $.VendorRef.value
+  po_number:
+    $var: $.DocNumber
+  po_date:
+    $var: $.MetaData.CreateTime
+  product_name:
+    $var: $.Line[0].ItemBasedExpenseLineDetail.ItemRef.name
+  sku:
+    $var: $.Line[0].ItemBasedExpenseLineDetail.ItemRef.value
+  quantity:
+    $var: $.Line[0].Amount
+  carrier:
+    $var: $.sparse
+isCustomized: true
+universalFieldMappingRevision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+integration:
+  id: 695d31631b51b86162a071d3
+  name: Quickbooks
+  uuid: 8799b01d-9331-4819-9148-a21368921412
+  key: quickbooks
+  state: READY
+  errors: []
+  revision: a907c53c-9475-47d1-9d8e-29d071f06061
+  createdAt: '2026-01-06T15:59:33.050Z'
+  updatedAt: '2026-01-08T13:53:01.808Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/quickbooks-connector/logo.png
+  connectorId: 642b0c74c594903351a00870
+  connectorVersion: 1.1.20
+  oAuthCallbackUri: https://api.integration.app/oauth-callback
+  hasMissingParameters: false
+  hasDocumentation: true
+  hasOperations: true
+  operationsCount: 86
+  hasData: true
+  dataCollectionsCount: 29
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: oauth2
+integrationKey: quickbooks

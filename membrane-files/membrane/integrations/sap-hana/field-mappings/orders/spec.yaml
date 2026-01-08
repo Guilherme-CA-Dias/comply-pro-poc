@@ -1,0 +1,96 @@
+id: 695d31661b51b86162a0752d
+name: Orders
+uuid: d0ee5bf1-ff10-4970-8e86-acb7b447b23d
+key: orders
+state: READY
+errors: []
+revision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+createdAt: '2026-01-06T15:59:34.899Z'
+updatedAt: '2026-01-06T16:12:42.480Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071cd
+universalFieldMappingId: 695d31651b51b86162a07256
+dataSourceKey: orders
+appSchema:
+  type: object
+  properties:
+    manufacturer:
+      title: Manufacturer
+      type: string
+    supplier_alt_id:
+      title: Supplier Alt ID
+      type: string
+    po_number:
+      title: PO Number
+      type: string
+    po_date:
+      title: PO Date
+      type: string
+    product_name:
+      title: Product Name
+      type: string
+    sku:
+      title: SKU
+      type: string
+    quantity:
+      title: Quantity
+      type: string
+    Invoice_number:
+      title: Invoice Number
+      type: string
+    carrier:
+      title: Carrier
+      type: string
+    bill_of_lading:
+      title: Bill of Lading
+      type: string
+    container:
+      title: Container
+      type: string
+direction: import
+defaultImportValue:
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdTime
+  product_name:
+    $var: $.lineItems[0].name
+  sku:
+    $var: $.lineItems[0].sku
+  quantity:
+    $var: $.lineItems[0].quantity
+defaultExportValue:
+  $var: $
+importValue:
+  po_number:
+    $var: $.PurchaseOrder
+  po_date:
+    $var: $.CreationDate
+isCustomized: false
+universalFieldMappingRevision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+integration:
+  id: 695d31631b51b86162a071cd
+  name: SAP S4 HANA
+  uuid: 367f87e0-a6f9-4b24-aa4a-988a780cbd2f
+  key: sap-hana
+  state: READY
+  errors: []
+  revision: fae0ed71-a3f8-494a-95b6-4ca923c46bdc
+  createdAt: '2026-01-06T15:59:31.671Z'
+  updatedAt: '2026-01-06T15:59:31.671Z'
+  isDeactivated: false
+  logoUri: https://static.integration.app/connectors/sap-hana-connector/logo.png
+  connectorId: 64ff3219f51a74915b79b9a0
+  connectorVersion: 1.0.3
+  hasMissingParameters: false
+  hasDocumentation: false
+  hasOperations: false
+  operationsCount: 0
+  hasData: true
+  dataCollectionsCount: 3
+  hasEvents: false
+  eventsCount: 0
+  hasGlobalWebhooks: false
+  hasUdm: true
+  authType: client-credentials
+integrationKey: sap-hana

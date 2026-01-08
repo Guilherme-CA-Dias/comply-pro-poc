@@ -1,0 +1,112 @@
+id: 695d31651b51b86162a07256
+name: Orders
+uuid: 811ca33a-6229-4ac0-a86d-9d0433318175
+key: orders
+state: READY
+errors: []
+revision: f9721f3d-7a1b-4bd6-9649-995877b132aa
+createdAt: '2026-01-06T15:59:33.118Z'
+updatedAt: '2026-01-06T16:12:42.206Z'
+isDeactivated: false
+isUniversal: true
+dataSourceKey: orders
+appSchema:
+  type: object
+  properties:
+    manufacturer:
+      title: Manufacturer
+      type: string
+    supplier_alt_id:
+      title: Supplier Alt ID
+      type: string
+    po_number:
+      title: PO Number
+      type: string
+    po_date:
+      title: PO Date
+      type: string
+    product_name:
+      title: Product Name
+      type: string
+    sku:
+      title: SKU
+      type: string
+    quantity:
+      title: Quantity
+      type: string
+    Invoice_number:
+      title: Invoice Number
+      type: string
+    carrier:
+      title: Carrier
+      type: string
+    bill_of_lading:
+      title: Bill of Lading
+      type: string
+    container:
+      title: Container
+      type: string
+direction: import
+defaultImportValue:
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdTime
+  product_name:
+    $var: $.lineItems[0].name
+  sku:
+    $var: $.lineItems[0].sku
+  quantity:
+    $var: $.lineItems[0].quantity
+defaultExportValue:
+  $var: $
+importValue:
+  manufacturer:
+    $var: $.notes
+  supplier_alt_id:
+    $var: $.customerId
+  po_number:
+    $var: $.id
+  po_date:
+    $var: $.createdTime
+  product_name:
+    $var: $.lineItems[0].name
+  sku:
+    $var: $.lineItems[0].sku
+  quantity:
+    $var: $.lineItems[0].quantity
+  Invoice_number:
+    $var: $.name
+  carrier:
+    $var: $.notes
+  bill_of_lading:
+    $var: $.notes
+  container:
+    $var: $.notes
+exportValue:
+  id:
+    $var: $.po_number
+  name:
+    $var: $.Invoice_number
+  notes:
+    $concat:
+      - 'Manufacturer: '
+      - $var: $.manufacturer
+      - ' | Carrier: '
+      - $var: $.carrier
+      - ' | Bill of Lading: '
+      - $var: $.bill_of_lading
+      - ' | Container: '
+      - $var: $.container
+  customerId:
+    $var: $.supplier_alt_id
+  createdTime:
+    $var: $.po_date
+  lineItems:
+    - name:
+        $var: $.product_name
+      sku:
+        $var: $.sku
+      quantity:
+        $var: $.quantity
+isCustomized: true

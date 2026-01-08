@@ -1,0 +1,15 @@
+id: 695d31661b51b86162a0743d
+name: Continuously Import Orders to my App
+uuid: 68365e4c-9d79-4876-acad-39c95405c76e
+key: continuously-import-orders-to-my-app
+state: READY
+errors: []
+revision: 0b558e8f-6b22-4be3-b2ba-20d96ec9343a
+createdAt: '2026-01-06T15:59:34.766Z'
+updatedAt: '2026-01-06T15:59:34.789Z'
+isDeactivated: false
+integrationId: 695d31631b51b86162a071c9
+parentId: 695d31651b51b86162a072b3
+isCustomized: false
+isPublic: false
+integrationKey: netsuite
