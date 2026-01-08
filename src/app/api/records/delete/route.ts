@@ -60,14 +60,14 @@ export async function DELETE(request: NextRequest) {
 		}
 
 		// Use ExternalId from fields if available, otherwise use id
-		const accountId = record.fields?.ExternalId || record.id;
+		const orderId = record.fields?.ExternalId || record.id;
 
-		// Run the delete action (assuming it's 'delete-ledger-account')
+		// Run the delete action (assuming it's 'delete-order')
 		try {
 			await client
 				.connection(connection.id)
-				.action("delete-ledger-account")
-				.run({ id: accountId });
+				.action("delete-order")
+				.run({ id: orderId });
 		} catch (actionError) {
 			// If the action doesn't exist or fails, we'll still delete from our DB
 			console.warn("Delete action failed, but continuing with local deletion:", actionError);

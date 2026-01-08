@@ -44,20 +44,20 @@ export async function POST(request: NextRequest) {
 
 		// Get the action key from RECORD_ACTIONS
 		const recordAction = RECORD_ACTIONS.find(
-			(action) => action.key === "get-accounts"
+			(action) => action.key === "get-orders"
 		);
 		if (!recordAction) {
 			return NextResponse.json(
-				{ error: "Account action not found in configuration" },
+				{ error: "Order action not found in configuration" },
 				{ status: 500 }
 			);
 		}
 
 		// Run the create action
-		// The action name should be 'create-ledger-account' based on user's request
+		// The action name should be 'create-order' based on user's request
 		const result = await client
 			.connection(connection.id)
-			.action("create-ledger-account")
+			.action("create-order")
 			.run({ fields: fields });
 
 		return NextResponse.json({
@@ -65,12 +65,12 @@ export async function POST(request: NextRequest) {
 			data: result.output,
 		});
 	} catch (error) {
-		console.error("Error creating account:", error);
+		console.error("Error creating order:", error);
 
 		// Extract error data if it's an IntegrationApp error
 		let errorData = null;
 		let errorMessage =
-			error instanceof Error ? error.message : "Failed to create account";
+			error instanceof Error ? error.message : "Failed to create order";
 
 		if (
 			error &&

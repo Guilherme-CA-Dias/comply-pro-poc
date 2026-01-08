@@ -1,41 +1,34 @@
 export const DEFAULT_SCHEMAS = {
-	accounts: {
+	orders: {
 		properties: {
-			id: { type: "string", title: "ID", readOnly: true },
-			name: { type: "string", title: "Name" },
-			code: { type: "string", title: "Code" },
-			description: { type: "string", title: "Description" },
-			classification: {
-				type: "string",
-				title: "Classification",
-				enum: ["Asset", "Liability", "Equity", "Revenue", "Expense"],
+			purchaseOrder: {
+				type: "object",
+				title: "Purchase Order",
+				properties: {
+					manufacturer: { type: "string", title: "Manufacturer" },
+					supplier_alt_id: { type: "string", title: "Supplier Alt ID" },
+					po_number: { type: "string", title: "PO Number" },
+					po_date: { type: "string", title: "PO Date" },
+					product_name: { type: "string", title: "Product Name" },
+					sku: { type: "string", title: "SKU" },
+					quantity: { type: "string", title: "Quantity" },
+					Invoice_number: { type: "string", title: "Invoice Number" },
+					carrier: { type: "string", title: "Carrier" },
+					bill_of_lading: { type: "string", title: "Bill of Lading" },
+					container: { type: "string", title: "Container" },
+				},
+				required: [
+					"manufacturer",
+					"supplier_alt_id",
+					"po_number",
+					"po_date",
+					"product_name",
+					"sku",
+					"quantity",
+				],
 			},
-			type: { type: "string", title: "Type" },
-			status: {
-				type: "string",
-				title: "Status",
-				enum: ["Active", "Inactive", "Archived"],
-			},
-			currentBalance: { type: "number", title: "Current Balance" },
-			currency: { type: "string", title: "Currency" },
-			taxRateId: { type: "string", title: "Tax Rate ID" },
-			companyId: { type: "string", title: "Company ID" },
-			createdTime: {
-				type: "string",
-				title: "Created Time",
-				format: "date-time",
-				readOnly: true,
-			},
-			createdBy: { type: "string", title: "Created By", readOnly: true },
-			updatedTime: {
-				type: "string",
-				title: "Updated Time",
-				format: "date-time",
-				readOnly: true,
-			},
-			updatedBy: { type: "string", title: "Updated By", readOnly: true },
 		},
-		required: ["id", "name"],
+		required: ["purchaseOrder"],
 	},
 } as const;
 

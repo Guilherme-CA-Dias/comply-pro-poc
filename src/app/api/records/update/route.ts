@@ -21,7 +21,7 @@ export async function PUT(request: NextRequest) {
 
 		if (!id) {
 			return NextResponse.json(
-				{ error: "Account ID is required" },
+				{ error: "Order ID is required" },
 				{ status: 400 }
 			);
 		}
@@ -49,10 +49,10 @@ export async function PUT(request: NextRequest) {
 		}
 
 		// Run the update action
-		// The action name should be 'update-ledger-account' based on user's request
+		// The action name should be 'update-order' based on user's request
 		const result = await client
 			.connection(connection.id)
-			.action("update-ledger-account")
+			.action("update-order")
 			.run({
 				input: {
 					id,
@@ -65,10 +65,10 @@ export async function PUT(request: NextRequest) {
 			data: result.output,
 		});
 	} catch (error) {
-		console.error("Error updating account:", error);
+		console.error("Error updating order:", error);
 		return NextResponse.json(
 			{
-				error: error instanceof Error ? error.message : "Failed to update account",
+				error: error instanceof Error ? error.message : "Failed to update order",
 			},
 			{ status: 500 }
 		);

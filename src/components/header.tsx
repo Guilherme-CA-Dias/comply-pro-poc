@@ -66,18 +66,6 @@ export function Header() {
 							>
 								Records
 							</Link>
-
-							<Link
-								href="/submit-form"
-								className={cn(
-									"inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 transition-colors",
-									pathname === "/submit-form"
-										? "border-blue-500 text-blue-600 dark:text-blue-400"
-										: "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-								)}
-							>
-								Create Account
-							</Link>
 						</div>
 					</div>
 					<div className="flex items-center">

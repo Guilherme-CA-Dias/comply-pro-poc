@@ -50,7 +50,7 @@ Default record types are defined in `src/lib/constants.ts`. You can modify this 
 
 ```typescript
 export const RECORD_ACTIONS = [
-	{ key: "get-accounts", label: "Accounts", type: "default" },
+	{ key: "get-orders", label: "Orders", type: "default" },
 	// Add more record types as needed
 ];
 ```
@@ -94,10 +94,6 @@ The Records page displays data imported from external applications. You can:
 - Delete records
 - Import new records
 
-### Submit Form
-
-The Submit Form page allows users to submit data through custom forms. The submitted data is sent to the appropriate webhook URL based on the form type.
-
 ## Project Structure
 
 - `/src/app` - Next.js app router pages and API routes
@@ -105,7 +101,6 @@ The Submit Form page allows users to submit data through custom forms. The submi
   - `/records` - Record management pages and components
   - `/forms` - Form management pages and components
   - `/integrations` - Integration connection pages
-  - `/submit-form` - Form submission page
 - `/src/components` - Reusable React components
 - `/src/hooks` - Custom React hooks
 - `/src/lib` - Utility functions and helpers
@@ -122,11 +117,19 @@ The Submit Form page allows users to submit data through custom forms. The submi
 
 ## Webhook Endpoint
 
-The `/api/webhooks` endpoint is responsible for receiving and processing record updates from Integration.app. This endpoint handles incoming webhook payloads and updates the local database accordingly.
+The `/api/webhooks` endpoint is responsible for receiving and processing record events from Integration.app. This endpoint handles incoming webhook payloads and updates the local database accordingly.
 
-### Expected Payload Structure
+The endpoint supports three HTTP methods:
 
-External sources should send POST requests to `/api/webhooks` with the following payload structure:
+- **POST**: Create new records
+- **PATCH**: Update existing records
+- **DELETE**: Delete records
+
+### POST - Create New Records
+
+Creates a new record in the database. Returns 409 if the record already exists.
+
+**Expected Payload Structure:**
 
 ```json
 {
@@ -141,26 +144,105 @@ External sources should send POST requests to `/api/webhooks` with the following
 		},
 		"createdTime": "string (optional)",
 		"updatedTime": "string (optional)",
-		"additional_fields": "any"
+		"uri": "string (optional)"
 	}
 }
 ```
 
-### Payload Fields
+**Example:**
 
-- **customerId** (required): The unique identifier for the customer/tenant
-- **recordType** (required): The type of record (e.g., "files", "folders", "companies")
-- **data** (required): The record data object
-  - **id** (required): Unique identifier for the record
-  - **name** (optional): Display name for the record
-  - **fields** (optional): Object containing field values
-  - **createdTime** (optional): ISO timestamp when the record was created
-  - **updatedTime** (optional): ISO timestamp when the record was last updated
-  - Additional fields can be included as needed
+```bash
+curl -X POST http://localhost:3000/api/webhooks \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "customer123",
+    "recordType": "get-orders",
+    "data": {
+      "id": "order456",
+      "name": "Order #12345",
+      "fields": {
+        "purchaseOrder": {
+          "manufacturer": "FurnitureCo",
+          "po_number": "12121212"
+        }
+      },
+      "createdTime": "2024-01-01T00:00:00Z"
+    }
+  }'
+```
+
+### PATCH - Update Existing Records
+
+Updates an existing record in the database. Returns 404 if the record doesn't exist.
+
+**Expected Payload Structure:**
+
+```json
+{
+	"customerId": "string",
+	"recordType": "string",
+	"data": {
+		"id": "string|number",
+		"name": "string (optional)",
+		"fields": {
+			"field1": "value1",
+			"field2": "value2"
+		},
+		"updatedTime": "string (optional)",
+		"uri": "string (optional)"
+	}
+}
+```
+
+**Example:**
+
+```bash
+curl -X PATCH http://localhost:3000/api/webhooks \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "customer123",
+    "recordType": "get-orders",
+    "data": {
+      "id": "order456",
+      "fields": {
+        "purchaseOrder": {
+          "quantity": "10"
+        }
+      },
+      "updatedTime": "2024-01-02T00:00:00Z"
+    }
+  }'
+```
+
+### DELETE - Delete Records
+
+Deletes a record from the database. Returns 404 if the record doesn't exist.
+
+**Expected Payload Structure:**
+
+```json
+{
+	"customerId": "string",
+	"recordType": "string",
+	"recordId": "string|number"
+}
+```
+
+**Example:**
+
+```bash
+curl -X DELETE http://localhost:3000/api/webhooks \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "customer123",
+    "recordType": "get-orders",
+    "recordId": "order456"
+  }'
+```
 
 ### Response Format
 
-The endpoint returns a JSON response with the following structure:
+All endpoints return a JSON response with the following structure:
 
 ```json
 {
@@ -169,36 +251,29 @@ The endpoint returns a JSON response with the following structure:
 	"_id": "mongodb_object_id",
 	"customerId": "string",
 	"recordType": "string",
-	"status": "created|updated|unchanged"
+	"status": "created|updated|deleted"
 }
 ```
 
-### Behavior
+### Payload Fields
 
-- **New Records**: If a record with the given `id` and `customerId` doesn't exist, it will be created
-- **Existing Records**: If a record exists, it will be updated only if the data has changed
-- **Duplicate Prevention**: The endpoint compares existing data with new data to avoid unnecessary updates
-- **Error Handling**: Returns appropriate HTTP status codes and error messages for invalid payloads
+- **customerId** (required): The unique identifier for the customer/tenant
+- **recordType** (required): The type of record (e.g., "get-orders")
+- **data** (required for POST/PATCH): The record data object
+  - **id** (required): Unique identifier for the record
+  - **name** (optional): Display name for the record
+  - **fields** (optional): Object containing field values
+  - **createdTime** (optional): ISO timestamp when the record was created
+  - **updatedTime** (optional): ISO timestamp when the record was last updated
+  - **uri** (optional): URI reference to the record
+- **recordId** (required for DELETE): The ID of the record to delete
 
-### Example Usage
+### Error Handling
 
-```bash
-curl -X POST http://localhost:3000/api/webhooks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "customerId": "customer123",
-    "recordType": "files",
-    "data": {
-      "id": "contact456",
-      "name": "John Doe",
-      "fields": {
-        "email": "john@example.com",
-        "phone": "+1234567890"
-      },
-      "createdTime": "2024-01-01T00:00:00Z"
-    }
-  }'
-```
+- Returns 400 for missing required fields
+- Returns 404 for records not found (PATCH/DELETE)
+- Returns 409 for duplicate records (POST)
+- Returns 500 for internal server errors
 
 ## Troubleshooting
 

@@ -123,7 +123,7 @@ export function EditRecordModal({
 
 		try {
 			// Use ExternalId from fields if available, otherwise use id
-			const accountId = record.fields?.ExternalId || record.id;
+			const orderId = record.fields?.ExternalId || record.id;
 
 			// Call the update API endpoint
 			const response = await fetch("/api/records/update", {
@@ -134,14 +134,14 @@ export function EditRecordModal({
 				},
 				body: JSON.stringify({
 					integrationKey: selectedIntegrationKey,
-					id: accountId,
+					id: orderId,
 					fields: formData.fields || {},
 				}),
 			});
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.error || "Failed to update account");
+				throw new Error(errorData.error || "Failed to update order");
 			}
 
 			// Use setTimeout to avoid flushSync issues
@@ -217,7 +217,7 @@ export function EditRecordModal({
 							)}
 							{schema && formData && (
 								<div className="space-y-2 pt-4">
-									<Minimizer title="Edit Account Fields" defaultOpen={true}>
+									<Minimizer title="Edit Order Fields" defaultOpen={true}>
 										<div
 											className="relative z-[1] isolate"
 											onFocus={(e) => e.stopPropagation()}
